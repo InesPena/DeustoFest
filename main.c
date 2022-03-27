@@ -3,9 +3,11 @@
 #include <locale.h>
 
 #include "entrada/entrada.h"
+#include "cliente/cliente.h"
+#include "artista/artista.h"
 
-#define MAX_LINE 10
-#define MAX_ENTRADAS
+#define MAX_LINE 20
+#define MAX_ENTRADAS 100
 
 /**
 * Main
@@ -18,9 +20,14 @@ int main()
 	Entrada entrada[100];
 	int numEntrada = 0;
 	
+	Cliente listaClientes[100];
+	int numCliente = 0;
+
     int op;
     int op2;
     
+    TIPO_ENTRADA tipoEntrada;
+
     do {
     	system("cls");
         op = menuPrincipal();
@@ -38,6 +45,12 @@ int main()
         		if (numEntrada < 100) {
         			op2 = elegirEntrada();
         			
+        			if (op2 == 1) tipoEntrada = TIPO_A;
+        			if (op2 == 2) tipoEntrada = TIPO_B;
+        			if (op2 == 3) tipoEntrada = TIPO_O;
+
+
+
         			system("cls");
         			
         			pedirDatos();
@@ -65,6 +78,36 @@ int main()
     } while (op != 4);
 	 
     return 0;
+}
+
+/**
+* Pedir datos personales para realizar la compra
+*/
+
+void pedirDatos(Cliente *cliente)
+{
+	char str[MAX_LINE];
+
+	char *nom;
+	char dni[10];
+	char *mail;
+
+	printf("Iniciando proceso de compra...\n\n");
+
+	printf("Nombre: ");
+	fflush(stdout);
+	fgets(str, MAX_LINE, stdin);
+	sscanf(str, "%s", &nom);
+	cliente->nom = nom;
+
+	printf("DNI: ");
+	fflush(stdout);
+	fgets(str, MAX_LINE, stdin);
+	sscanf(str, "%s", &dni);
+	cliente->dni = dni;
+
+	printf("E-mail: ");
+
 }
 
 /**
@@ -114,15 +157,6 @@ int elegirEntrada()
 void mostrarCartelera() 
 {
 	
-}
-
-/**
-* Pedir datos personales para realizar la compra
-*/
-
-void pedirDatos() 
-{	
-	printf("Iniciando proceso de compra...\n\n");
 }
 
 
