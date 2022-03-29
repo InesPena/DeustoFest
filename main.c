@@ -107,6 +107,10 @@ void pedirDatos(Cliente *cliente)
 	cliente->dni = dni;
 
 	printf("E-mail: ");
+	fflush(stdout);
+	fgets(str, MAX_LINE, stdin);
+	sscanf(str, "%s", &mail);
+	cliente->mail = mail;
 
 }
 
