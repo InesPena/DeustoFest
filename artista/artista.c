@@ -8,9 +8,8 @@
 #include <stdio.h>
 #include "artista.h"
 
-void ImprimirArtista(Artista a){
-	printf("Dni: %s\n, Nombre: %s\n, Tipo: %s\n, a.dni, a.nombre, a.tipo");
+void ImprimirArtista(Artista a) {
 
-
+	printf("Dni: %s\n, Nombre: %s\n, Tipo: %s\n", a.dni, a.nombre, a.genero);
 }
 

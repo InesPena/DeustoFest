@@ -9,9 +9,9 @@
 #define ARTISTA_H_
 
 typedef struct{
-	char dni[10];
-	char nombre[10];
-	char genero[10];
+	char *dni;
+	char *nombre;
+	char *genero;
 } Artista;
 
 void ImprimirArtista(Artista a);
