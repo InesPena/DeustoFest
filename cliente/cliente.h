@@ -10,11 +10,15 @@
 
 
 typedef struct{
+
 	char *nom;
 	char dni[10];
 	char *mail;
 	int edad;
+
 } Cliente;
+
+void pedirDatosCliente(Cliente c);
 
 void imprimirCliente(Cliente c);
 

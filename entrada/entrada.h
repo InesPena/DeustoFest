@@ -11,9 +11,9 @@
 typedef struct {
 
 	typedef enum {
-		TIPO_A = 40;	/*Día 21*/
-		TIPO_B = 38; 	/*Día 22*/
-		TIPO_O = 72; 	/*Día 21 y 22*/
+		TIPO_A = 40,	/*Día 21*/
+		TIPO_B = 38, 	/*Día 22*/
+		TIPO_O = 72, 	/*Día 21 y 22*/
 
 	} TIPO_ENTRADA;
 
