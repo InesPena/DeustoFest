@@ -6,10 +6,15 @@
  */
 
 #include <stdio.h>
+
 #include "artista.h"
 
-void ImprimirArtista(Artista a) {
+#define MAX_LINE 20
 
-	printf("Dni: %s\n, Nombre: %s\n, Tipo: %s\n", a.dni, a.nombre, a.genero);
+
+void imprimirArtista(Artista a)
+{
+
+	printf("Dni: %s\n, Nombre: %s\n, Tipo: %s\n", a.cod, a.nombre, a.genero);
 }
 

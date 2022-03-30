@@ -8,13 +8,24 @@
 #ifndef ARTISTA_H_
 #define ARTISTA_H_
 
+typedef enum {
+	POP,
+	REGGAETON,
+	RAP,
+	URBAN,
+
+} GENERO;
+
 typedef struct{
-	char *dni;
+	int cod;
 	char *nombre;
-	char *genero;
+	GENERO genero;
+
 } Artista;
 
-void ImprimirArtista(Artista a);
+Artista anadirArtista();
+
+void imprimirArtista(Artista a);
 
 
 #endif /* ARTISTA_H_ */

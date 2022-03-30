@@ -1,25 +1,17 @@
-/*
- * cliente.h
- *
- *  Created on: 25 mar 2022
- *      Author: IRIA
- */
-
-#ifndef CLIENTE_H_
-#define CLIENTE_H_
-
+#ifndef CLIENTE_CLIENTE_H_
+#define CLIENTE_CLIENTE_H_
 
 typedef struct{
 
-	char *nom;
 	char dni[10];
+	char *nom;
 	char *mail;
 	int edad;
 
 } Cliente;
 
-void pedirDatosCliente(Cliente c);
+void anadirCliente(Cliente *c);
 
 void imprimirCliente(Cliente c);
 
-#endif /* CLIENTE_H_ */
+#endif /* CLIENTE_CLIENTE_H_ */

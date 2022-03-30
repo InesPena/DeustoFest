@@ -1,14 +1,17 @@
+#include "entrada/entrada.h"
+#include "cliente/cliente.h"
+#include "menu/menu.h"
+#include "baseDatos/gestorBD.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
 
-#include "entrada/entrada.h"
-#include "cliente/cliente.h"
-#include "artista/artista.h"
-#include "meun/menu.h"
-
 #define MAX_LINE 20
 #define MAX_ENTRADAS 100
+
+void buclePrincipal();
+void bucleSecundario();
 
 /**
 * Main
@@ -17,17 +20,9 @@
 int main()
 {
 	setlocale(LC_ALL, "spanish");
-	
-	Entrada entrada[100];
-	int numEntrada = 0;
-	
-	Cliente listaClientes[100];
-	int numCliente = 0;
-    
-
 
     buclePrincipal();
-	 
+
     return 0;
 }
 
@@ -40,43 +35,58 @@ void buclePrincipal()
 	int op;
 
 	do {
-	    	system("cls");
-	        op = menuDF();
+		system("cls");
+	    op = menu();
 
-	        switch (op) {
+	     switch (op) {
 
-	            case 1:
-	                system("pause>nul");
-	                break;
+	     	 case 1:
+	     		bucleSecundario();
+	     		break;
 
-	            case 2:
-	            	comprarEntrada();
-	                system("pause>nul");
-	                break;
+	         case 2:
+	        	 break;
 
-	            case 3:
-	                system("pause>nul");
-	                break;
+	         case 3:
+	             break;
 
-	            case 4:
-	                system("pause>nul");
-	                break;
+	         case 4:
+	             break;
 
-	            default:
-	            	printf("Error. La opción seleccionada no existe.\n");
-	            	system("pause>nul");
-					break;
-	        }
-	    } while (op != 4);
+	         default:
+	        	printf("Error. La opción seleccionada no existe.\n");
+				break;
+	    }
+	} while (op != 5);
 }
 
-void comprarEntradas()
+void bucleSecundario()
 {
 	int op;
-	op = menuEntrada();
 
-	pedirDatosCliente();
+	do {
+		system("cls");
+		op = subMenu();
+
+		switch (op) {
+
+			case 1:
+				break;
+
+		    case 2:
+		    	break;
+
+		    case 3:
+		         break;
+
+		    default:
+		    	printf("Error. La opción seleccionada no existe.\n");
+				break;
+		}
+	} while (op != 3);
 }
+
+
 
 
 

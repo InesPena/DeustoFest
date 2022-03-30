@@ -1,33 +1,27 @@
 /*
  * entrada.h
  *
- *  Created on: 27 mar 2022
+ *  Created on: 30 mar 2022
  *      Author: iness
  */
 
-#ifndef ENTRADA_H_
-#define ENTRADA_H_
+#ifndef ENTRADA_ENTRADA_H_
+#define ENTRADA_ENTRADA_H_
+
+typedef enum {
+	DIA_1 = 40,
+	DIA_2 = 38,
+	COMPLETA = 72,
+
+} TIPO_ENTRADA;
 
 typedef struct {
+	int cod;
+	char dni[9];
+	TIPO_ENTRADA tipo;
+	int camp;
+	int bus;
 
-	typedef enum {
-		TIPO_A = 40,	/*Día 21*/
-		TIPO_B = 38, 	/*Día 22*/
-		TIPO_O = 72, 	/*Día 21 y 22*/
+} Entrada;
 
-	} TIPO_ENTRADA;
-
-	typedef struct {
-		int cod;
-		char dni[9];
-		TIPO_ENTRADA tipo;
-		int camp;
-		int bus;
-
-	} Entrada;
-
-};
-
-
-
-#endif /* ENTRADA_H_ */
+#endif /* ENTRADA_ENTRADA_H_ */

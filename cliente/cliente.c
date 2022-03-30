@@ -1,50 +1,47 @@
-/*
- * cliente.c
- *
- *  Created on: 25 mar 2022
- *      Author: IRIA
- */
-
 #include "cliente.h"
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_LINE 20
 
 /**
- * Pide los datos del cliente por pantalla y los almacena
+ * Pide los datos a un cliente y lo añade a muna lista de clientes
  */
 
-void pedirDatosCliente(Cliente *c)
+void anadirCliente(Cliente *c)
 {
-		char str[MAX_LINE];
+	char str[MAX_LINE];
 
-		char *nom;
-		char dni[10];
-		char *mail;
+	char dni[10];
+	char nom;
+	char mail;
 
-		printf("Nombre: ");
-		fflush(stdout);
-		fgets(str, MAX_LINE, stdin);
-		sscanf(str, "%s", &nom);
-		cliente->nom = nom;
+	char temp[10];
+	int size;
 
-		printf("DNI: ");
-		fflush(stdout);
-		fgets(str, MAX_LINE, stdin);
-		sscanf(str, "%s", &dni);
-		cliente->dni = dni;
+	printf("DNI: ");
+	fflush(stdout);
+	fgets(str, MAX_LINE, stdin);
+	sscanf(str, "%s", &dni);
 
-		printf("E-mail: ");
-		fflush(stdout);
-		fgets(str, MAX_LINE, stdin);
-		sscanf(str, "%s", &mail);
-		cliente->mail = mail;
-}
 
-/**
- * Imprime los datos de un cliente por pantalla
- */
+	printf("Nombre: ");
+	fflush(stdout);
+	fgets(temp, MAX_LINE, stdin);
+	sscanf(temp, "%s", temp);
+	size = strlen(temp);
+	c->nom = malloc((size + 1) * sizeof(char));
+	strcpy(c->nom, temp);
+	free(temp);
 
-void imprimirCliente(Cliente c)
-{
-	printf("Nombre: %s, Dni: %s, Mail: %s, Edad: %d", c.nom, c.dni, c.mail, c.edad);
+	printf("Email: ");
+	fflush(stdout);
+	fgets(temp, MAX_LINE, stdin);
+	sscanf(temp, "%s", temp);
+	size = strlen(temp);
+	c->mail = malloc((size + 1) * sizeof(char));
+	strcpy(c->mail, temp);
+	free(temp);
 }
