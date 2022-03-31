@@ -10,7 +10,7 @@ typedef struct{
 
 } Cliente;
 
-void selectCliente(char dni[10]);
+void selectCliente();
 
 void imprimirCliente(Cliente c);
 

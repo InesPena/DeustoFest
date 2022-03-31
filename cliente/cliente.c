@@ -8,7 +8,7 @@
  * Recupera los datos del un cliente determinado de la bd
  */
 
-void selectCliente(char dni[10])
+void selectCliente()
 {
 
 }

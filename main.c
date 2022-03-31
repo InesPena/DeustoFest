@@ -60,10 +60,6 @@ void menu ()
 
 	         case 4:
 	             break;
-
-	         default:
-	        	printf("Error. La opción seleccionada no existe.\n");
-				break;
 	    }
 	} while (op != 5);
 }
@@ -98,13 +94,10 @@ void subMenu()
 				break;
 
 		    case 2:
-		    	eliminarArtista(a);
+		    	eliminarArtista();
 		    	break;
-
-		    default:
-		    	printf("Error. La opción seleccionada no existe.\n");
-				break;
 		}
+
 	} while (op != 3);
 }
 

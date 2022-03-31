@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include "artista.h"
+#include "../sqlite3/sqlite3.h"
 
 #define MAX_LINE 20
 
@@ -61,7 +62,7 @@ void insertarArtsita(Artista a)
  * Pide el código de un artista y lo elimina de la base de datos
  */
 
-void eliminarArtsita(char *cod)
+void eliminarArtista()
 {
 
 }
@@ -70,7 +71,7 @@ void eliminarArtsita(char *cod)
  * Recupera los datos del un artista determinado de la bd
  */
 
-void selectArtista(char *cod)
+void selectArtista()
 {
 
 }
@@ -81,6 +82,6 @@ void selectArtista(char *cod)
 
 void imprimirArtista(Artista a)
 {
-	printf("Dni: %s\n, Nombre: %s\n, Tipo: %s\n", a.cod, a.nombre, a.genero);
+	printf("Dni: %s\n, Nombre: %s\n%s\n", a.cod, a.nombre);
 }
 

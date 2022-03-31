@@ -3,7 +3,7 @@
 
 typedef struct{
 	int cod[4];
-	char *nomb;
+	char *nombre;
 
 } Artista;
 
@@ -11,9 +11,9 @@ void pedirDatosArtista(Artista *a);
 
 void insertarArtsita(Artista a);
 
-void eliminarArtsita(char *cod);
+void eliminarArtista();
 
-void selectArtsita(char *cod)
+void selectArtsita();
 
 void imprimirArtista(Artista a);
 
