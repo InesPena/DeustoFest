@@ -18,6 +18,6 @@ typedef struct {
 	Artista artista;
 
 
-}Actuacion ;
+} Actuacion ;
 
 #endif /* ACTUACION_ACTUACION_H_ */

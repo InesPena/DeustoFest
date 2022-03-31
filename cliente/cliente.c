@@ -4,44 +4,21 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_LINE 20
-
 /**
- * Pide los datos a un cliente y lo añade a muna lista de clientes
+ * Recupera los datos del un cliente determinado de la bd
  */
 
-void anadirCliente(Cliente *c)
+void selectCliente(char dni[10])
 {
-	char str[MAX_LINE];
 
-	char dni[10];
-	char nom;
-	char mail;
-
-	char temp[10];
-	int size;
-
-	printf("DNI: ");
-	fflush(stdout);
-	fgets(str, MAX_LINE, stdin);
-	sscanf(str, "%s", &dni);
-
-
-	printf("Nombre: ");
-	fflush(stdout);
-	fgets(temp, MAX_LINE, stdin);
-	sscanf(temp, "%s", temp);
-	size = strlen(temp);
-	c->nom = malloc((size + 1) * sizeof(char));
-	strcpy(c->nom, temp);
-	free(temp);
-
-	printf("Email: ");
-	fflush(stdout);
-	fgets(temp, MAX_LINE, stdin);
-	sscanf(temp, "%s", temp);
-	size = strlen(temp);
-	c->mail = malloc((size + 1) * sizeof(char));
-	strcpy(c->mail, temp);
-	free(temp);
 }
+
+/**
+ * Imprime los datos de un cliente
+ */
+
+void imprimirCliente(Cliente c)
+{
+
+}
+
