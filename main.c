@@ -1,6 +1,7 @@
 #include "entrada/entrada.h"
 #include "cliente/cliente.h"
 #include "artista/artista.h"
+#include "concierto/concierto.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -30,10 +31,11 @@ void menu ()
 {
 	int op;
 
-	do {
-		system("cls");
+	char *dni;
 
-		printf("\n\tDEUSTOFEST\n\n");
+	do {
+		printf("\n\n\tDEUSTOFEST\n");
+		printf("--------------------------------\n\n");
 		printf("1. Modificar Cartelera\n");
 		printf("2. Consultar datos de cliente\n");
 		printf("3. Consultar datos de artista\n");
@@ -43,6 +45,7 @@ void menu ()
 		printf("\nOpción: ");
 		fflush(stdout);
 		scanf("%i", &op);
+		getchar();
 
 	    switch (op) {
 
@@ -51,11 +54,10 @@ void menu ()
 	     		break;
 
 	         case 2:
-	        	 selectCliente();
 	        	 break;
 
 	         case 3:
-	        	 selectArtista();
+	        	 selectArtista(&dni);
 	             break;
 
 	         case 4:
@@ -72,25 +74,27 @@ void subMenu()
 {
 	int op;
 
-	Artista a;
+	Artista *a;
+	Concierto *c;
 
 	do {
-		system("cls");
-
-		printf("\n\tDEUSTOFEST\n\n");
-		printf("1. Añadir Artista\n");
-		printf("2. Eliminar Artista\n");
+		printf("\n\n      MODIFICAR CARTELERA \n");
+		printf("--------------------------------\n\n");
+		printf("1. Organizar nuevo concierto\n");
+		printf("2. Cancelar concierto\n");
 		printf("3. Volver al menú rpincipal\n");
 
 		printf("\nOpción: ");
 		fflush(stdout);
 		scanf("%i", &op);
+		getchar();
 
 		switch (op) {
 
 			case 1:
-				pedirDatosArtista(&a);
-				insertarArtsita(a);
+				printf("\nInserte los siguientes datos...\n\n");
+				pedirDatosConcierto(&c, &a);
+
 				break;
 
 		    case 2:

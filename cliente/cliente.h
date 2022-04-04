@@ -10,7 +10,9 @@ typedef struct{
 
 } Cliente;
 
-void selectCliente();
+char* pedirDni();
+
+Cliente* selectCliente(char *dni);
 
 void imprimirCliente(Cliente c);
 

@@ -13,8 +13,6 @@ void insertarArtsita(Artista a);
 
 void eliminarArtista();
 
-void selectArtsita();
-
 void imprimirArtista(Artista a);
 
 #endif
