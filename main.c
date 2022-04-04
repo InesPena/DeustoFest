@@ -5,7 +5,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <locale.h>
 
 void menu();
 void subMenu();
@@ -16,8 +15,6 @@ void subMenu();
 
 int main()
 {
-	setlocale(LC_ALL, "spanish");
-
     menu();
 
     return 0;
@@ -61,8 +58,20 @@ void menu ()
 	             break;
 
 	         case 4:
+	        	 printf("  ESTADÍSTICAS\n")
+	        	 printf("Asistencia (%) = \n");
+	        	 printf("Reacudación total = \n");
 	             break;
+
+	         case 5;
+	         	 printf("\nSaliendo del programa...");
+	         	 break;
+
+	         default:
+	        	 printf("\n¡ERROR! La opción seleccionada no existe");
+	        	 break;
 	    }
+
 	} while (op != 5);
 }
 
@@ -82,7 +91,7 @@ void subMenu()
 		printf("--------------------------------\n\n");
 		printf("1. Organizar nuevo concierto\n");
 		printf("2. Cancelar concierto\n");
-		printf("3. Volver al menú rpincipal\n");
+		printf("3. Volver al menú pincipal\n");
 
 		printf("\nOpción: ");
 		fflush(stdout);
@@ -98,15 +107,16 @@ void subMenu()
 				break;
 
 		    case 2:
-		    	eliminarArtista();
+
+		    	break;
+
+		    default:
+		    	printf("\n¡ERROR! La opción seleccionada no existe");
 		    	break;
 		}
 
 	} while (op != 3);
 }
-
-
-
 
 
 
