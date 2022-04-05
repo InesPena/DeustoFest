@@ -1,7 +1,7 @@
 #include "entrada/entrada.h"
 #include "cliente/cliente.h"
-#include "artista/artista.h"
 #include "concierto/concierto.h"
+#include "sqlite3/sqlite3.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,12 +9,16 @@
 void menu();
 void subMenu();
 
+sqlite3 *db;
+
 /**
 * Main
 */
 
 int main()
 {
+	sqlite3_open("sqlite3/deustoFest.sqlite", &db);
+
     menu();
 
     return 0;
@@ -34,8 +38,8 @@ void menu ()
 		printf("\n\n\tDEUSTOFEST\n");
 		printf("--------------------------------\n\n");
 		printf("1. Modificar Cartelera\n");
-		printf("2. Consultar datos de cliente\n");
-		printf("3. Consultar datos de artista\n");
+		printf("2. Consultar lista de clientes\n");
+		printf("3. Consultar lista de artistas\n");
 		printf("4. Estadísticas\n");
 		printf("5. Salir\n");
 
@@ -58,12 +62,12 @@ void menu ()
 	             break;
 
 	         case 4:
-	        	 printf("  ESTADÍSTICAS\n")
+	        	 printf("  ESTADÍSTICAS\n");
 	        	 printf("Asistencia (%) = \n");
 	        	 printf("Reacudación total = \n");
 	             break;
 
-	         case 5;
+	         case 5:
 	         	 printf("\nSaliendo del programa...");
 	         	 break;
 
@@ -83,7 +87,6 @@ void subMenu()
 {
 	int op;
 
-	Artista *a;
 	Concierto *c;
 
 	do {
@@ -102,8 +105,8 @@ void subMenu()
 
 			case 1:
 				printf("\nInserte los siguientes datos...\n\n");
-				pedirDatosConcierto(&c, &a);
-
+				pedirDatosConcierto(&c);
+				insertarConcierto(&db, *c);
 				break;
 
 		    case 2:
@@ -117,7 +120,5 @@ void subMenu()
 
 	} while (op != 3);
 }
-
-
 
 

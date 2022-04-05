@@ -1,22 +1,27 @@
 #ifndef CONCIERTO_CONCIERTO_H_
 #define CONCIERTO_CONCIERTO_H_
 
-#include "../artista/artista.h"
+#include "../sqlite3/sqlite3.h"
+
+/*
+ * cod - Código del concierto
+ * artista - Nombre del artista
+ * escenario - codigo del escenario
+ * dia - codigo del día
+ */
 
 typedef struct {
 	int cod;
-	char fecha[11];
+	char *artista;
 	int escenario;
-	Artista artista;
+	int dia;
 
 } Concierto ;
 
-typedef struct {
-	int numConciertos;
-	Concierto *conciertos;
+void pedirDatosConcierto(Concierto *c);
 
-} Cartelera;
+void selectEscenarios(sqlite3 *db);
 
-void pedirDatosConcierto(Concierto *c, Artista *a);
+void insertarConcierto(sqlite3 *db, Concierto c);
 
 #endif /* CONCIERTO_CONCIERTO_H_ */
