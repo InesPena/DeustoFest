@@ -19,7 +19,7 @@ int main()
 {
 	sqlite3_open("sqlite3/deustoFest.sqlite", &db);
 
-    menu();
+	menu();
 
     return 0;
 }
@@ -31,8 +31,6 @@ int main()
 void menu ()
 {
 	int op;
-
-	char *dni;
 
 	do {
 		printf("\n\n\tDEUSTOFEST\n");
@@ -58,16 +56,16 @@ void menu ()
 	        	 break;
 
 	         case 3:
-	        	 selectArtista(&dni);
 	             break;
 
 	         case 4:
 	        	 printf("  ESTADÍSTICAS\n");
-	        	 printf("Asistencia (%) = \n");
+	        	 printf("Asistencia (%%) = \n");
 	        	 printf("Reacudación total = \n");
 	             break;
 
 	         case 5:
+	        	 sqlite3_close(db);
 	         	 printf("\nSaliendo del programa...");
 	         	 break;
 
@@ -90,7 +88,7 @@ void subMenu()
 	Concierto *c;
 
 	do {
-		printf("\n\n      MODIFICAR CARTELERA \n");
+		printf("\n\n     MODIFICAR CARTELERA \n");
 		printf("--------------------------------\n\n");
 		printf("1. Organizar nuevo concierto\n");
 		printf("2. Cancelar concierto\n");
@@ -105,12 +103,18 @@ void subMenu()
 
 			case 1:
 				printf("\nInserte los siguientes datos...\n\n");
-				pedirDatosConcierto(&c);
-				insertarConcierto(&db, *c);
+				pedirDatosConcierto(db, &c);
+				insertarConcierto(db, &c);
 				break;
 
 		    case 2:
+		    	imprimirCartelera(db);
 
+		    	printf("\nInserte el código del concierto...\n\n");
+		    	eliminarConcierto(db, pedirCodigoConcierto());
+		    	break;
+
+		    case 3:
 		    	break;
 
 		    default:

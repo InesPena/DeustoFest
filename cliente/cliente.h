@@ -1,6 +1,10 @@
 #ifndef CLIENTE_CLIENTE_H_
 #define CLIENTE_CLIENTE_H_
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 typedef struct{
 
 	char dni[10];
@@ -9,10 +13,6 @@ typedef struct{
 	int edad;
 
 } Cliente;
-
-char* pedirDni();
-
-Cliente* selectCliente(char *dni);
 
 void imprimirCliente(Cliente c);
 

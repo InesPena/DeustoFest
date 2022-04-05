@@ -1,27 +1,41 @@
-/*
- * entrada.h
- *
- *  Created on: 30 mar 2022
- *      Author: iness
- */
-
 #ifndef ENTRADA_ENTRADA_H_
 #define ENTRADA_ENTRADA_H_
 
-typedef enum {
-	DIA_1 = 40,
-	DIA_2 = 38,
-	COMPLETA = 72,
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-} TIPO_ENTRADA;
+#include "../sqlite3/sqlite3.h"
+
+#define MAX_ENTRADAS 1000
+
+typedef enum {
+	FALSE = 0,
+	TRUE = 1,
+
+}BOOLEAN;
 
 typedef struct {
 	int cod;
 	char dni[9];
-	TIPO_ENTRADA tipo;
-	int camp;
+	int camping;
 	int bus;
+	float precio;
 
 } Entrada;
+
+typedef struct {
+	int numEntradas;
+	Entrada entradas[MAX_ENTRADAS];
+
+} Aforo;
+
+void imprimirEntrada(Entrada e);
+
+Aforo selectEntradas(sqlite3 *db);
+
+float calcularAsistencia(Aforo a);
+
+float calcularIngersos(Aforo a);
 
 #endif /* ENTRADA_ENTRADA_H_ */
