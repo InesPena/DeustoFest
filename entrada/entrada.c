@@ -1,8 +1,8 @@
 #include "entrada.h"
 #include "../cliente/cliente.h"
 
-#define PRECIO_CAMP 35.00
-#define PRECIO_BUS 47.00
+#define PRECIO_CAMP 35
+#define PRECIO_BUS 47
 
 /*
  * Imprime los datos de una entrada por pantalla
@@ -20,7 +20,7 @@ void imprimirEntrada(Entrada e)
  * si se ha elegido bus y si se ha elegido camping
  */
 
-float calularPrecio(Entrada *e, float precioEnt)
+int calularPrecio(Entrada *e, int precioEnt)
 {
 	int precioTotal = 0;
 
@@ -38,7 +38,7 @@ float calularPrecio(Entrada *e, float precioEnt)
 void compraEntradas(Entrada *e, Cliente *c)
 {
 	int op;
-	float precioEnt;
+	int precioEnt;
 
 	e->camping = 0;
 	e->bus = 0;
@@ -61,6 +61,7 @@ void compraEntradas(Entrada *e, Cliente *c)
 	printf("¿Desa reservar una plaza de camping? (s/n) ");
 	fflush(stdout);
 	scanf("%c",&op2);
+	getchar();
 	if (op2 == 's') e->camping = 1;
 
 	printf("¿Desa reservar una plaza de autobus? (s/n) ");
@@ -73,7 +74,10 @@ void compraEntradas(Entrada *e, Cliente *c)
 	e->precio = calularPrecio(&e, precioEnt);
 
 	printf("\nIntroduzca sus datos personales...\n\n");
+
 	pedirDatosCliente(&c);
+	printf("%s", c->dni);
+	//strcpy(e->dni, c->dni);
 }
 
 /*
@@ -82,5 +86,21 @@ void compraEntradas(Entrada *e, Cliente *c)
 
 void insertEntrada(sqlite3 *db, Entrada *e)
 {
-	//FALTA POR HACER
+	sqlite3_stmt *stmt;
+	int result;
+
+	char sql[] = "INSERT INTO CLIENTE (dni, camping, bus, precio) VALUES (?, ?, ?, ?)";
+
+	sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL);
+
+	sqlite3_bind_text(stmt, 1, e->dni, strlen(e->dni), SQLITE_STATIC);
+	sqlite3_bind_int(stmt, 2, e->camping);
+	sqlite3_bind_int(stmt, 3, e->bus);
+	sqlite3_bind_int(stmt, 4, e->precio);
+
+	result = sqlite3_step(stmt);
+	if (result != SQLITE_DONE)
+		printf("Error al realizar la compra \n");
+
+	sqlite3_finalize(stmt);
 }

@@ -64,8 +64,6 @@ void pedirDatosConcierto(sqlite3 *db,Concierto *c)
 }
 
 
-
-
 /*
  * Inserta una nueva fila en la tabla concierto de la bd
  */
@@ -195,15 +193,16 @@ void imprimirCartelera(sqlite3 *db,Cartelera *cart, int op)
 
 		sqlite3_prepare_v2(db, sql, strlen(sql), &stmt, NULL);
 
-		printf("\n\tCARTELERA\n");
+		printf("\n\tPROGRAMA\n");
+		printf("--------------------------------\n\n");
 
 		do {
 			result = sqlite3_step(stmt);
 			if (result == SQLITE_ROW)
 			{
 				printf("Cod.%i\t", sqlite3_column_int(stmt, 0));
-				printf("%s\t", (char*)sqlite3_column_text(stmt, 1));
-				printf("%s\t", (char*)sqlite3_column_text(stmt, 2));
+				printf("%s\t\t", (char*)sqlite3_column_text(stmt, 1));
+				printf("%s\t\t", (char*)sqlite3_column_text(stmt, 2));
 				printf("%s\n", (char*)sqlite3_column_text(stmt, 3));
 			}
 

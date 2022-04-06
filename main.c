@@ -3,6 +3,7 @@
 #include "concierto/concierto.h"
 #include "sqlite3/sqlite3.h"
 #include "logger/logger.h"
+#include "puesto/puesto.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,9 +15,14 @@ void menuPlan();
 void menuCliente();
 
 int elegirOpcion();
+float porcentajeAsistencia(ListaEntradas l);
+int costes(ListaEntradas le, ListaPuestos lp);
 
 sqlite3 *db;
 Cartelera *cart;
+ListaEntradas lEntradas[MAX_ENTRADAS];
+ListaPuestos lPuestos[MAX_PUESTOS];
+
 
 /* ==================================================
  * 						MAIN
@@ -28,6 +34,11 @@ int main()
 	sqlite3_open("sqlite3/deustoFest.sqlite", &db);
 
 	log("prueba");
+
+	Cliente *c;
+
+	pedirDatosCliente(&c);
+		printf("%s", c->dni);
 
 	menu();
 
@@ -57,6 +68,12 @@ void menu()
 			case 2:
 				menuAdmin();
 				break;
+
+			case 3:
+				sqlite3_close(db);
+				free(cart);
+				printf("\nSaliendo del programa...");
+				break;
 		}
 
 	}while (op != 3);
@@ -76,10 +93,11 @@ void menuAdmin()
 		printf("\n\n\tADMINISTRADOR\n");
 		printf("--------------------------------\n\n");
 		printf("1. Planificar Festival\n");
-		printf("2. Consultar lista de clientes\n");
-		printf("3. Consultar lista de artistas\n");
-		printf("4. Estadísticas\n");
-		printf("5. Volver atrás\n");
+		printf("2. Consultar programa\n");
+		printf("3. Ver lista de puestos de comida/bebida");
+		printf("4. Consultar datos de cliente\n");
+		printf("5. Ver Estadísticas\n");
+		printf("6. Volver atrás\n");
 
 		op = elegirOpcion();
 
@@ -90,20 +108,22 @@ void menuAdmin()
 	     		break;
 
 	         case 2:
+	        	 imprimirCartelera(db, &cart, 2);
 	        	 break;
 
 	         case 3:
 	             break;
 
 	         case 4:
+	        	 break;
+
+	         case 5:
 	        	 printf("  ESTADÍSTICAS\n");
 	        	 printf("Asistencia (%%) = \n");
 	        	 printf("Reacudación total = \n");
 	             break;
 
-	         case 5:
-	        	 sqlite3_close(db);
-	         	 printf("\nSaliendo del programa...");
+	         case 6:
 	         	 break;
 
 	         default:
@@ -111,7 +131,7 @@ void menuAdmin()
 	        	 break;
 	    }
 
-	} while (op != 5);
+	} while (op != 6);
 }
 
 /**
@@ -144,8 +164,6 @@ void menuPlan()
 				break;
 
 		    case 2:
-		    	imprimirCartelera(db, &cart, 2);
-
 		    	printf("\nInserte el código del concierto...\n\n");
 		    	eliminarConcierto(db, pedirCodigoConcierto());
 		    	break;
@@ -196,8 +214,8 @@ void menuCliente()
 
 			case 2:
 				compraEntradas(&e, &c);
-				insertCliente(db, &c);
-				insertEntrada(db, &e);
+				//insertCliente(db, &c);
+				//insertEntrada(db, &e);
 				break;
 
 			case 3:
@@ -230,5 +248,26 @@ int elegirOpcion()
 
 	return op;
 }
+
+float porcentajeAsistencia(ListaEntradas l)
+{
+
+}
+
+int ingresos(ListaEntradas l)
+{
+
+}
+
+int costes(ListaEntradas le, ListaPuestos lp)
+{
+
+}
+
+int beneficio()
+{
+
+}
+
 
 

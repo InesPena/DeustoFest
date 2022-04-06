@@ -14,7 +14,7 @@ typedef struct {
 	char dni[9];
 	int camping;
 	int bus;
-	float precio;
+	int precio;
 
 } Entrada;
 
@@ -22,7 +22,7 @@ typedef struct {
 	int numEntradas;
 	Entrada entradas[MAX_ENTRADAS];
 
-} Aforo;
+} ListaEntradas;
 
 void imprimirEntrada(Entrada e);
 
@@ -30,6 +30,6 @@ void comprarEntradas();
 
 void insertEntrada(sqlite3 *db, Entrada *e);
 
-float calularPrecio(Entrada *e, float precioEnt);
+int calularPrecio(Entrada *e, int precioEnt);
 
 #endif /* ENTRADA_ENTRADA_H_ */

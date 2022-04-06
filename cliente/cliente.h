@@ -10,7 +10,7 @@
 typedef struct{
 
 	char dni[10];
-	char *nom;
+	char *nombre;
 	char *mail;
 
 } Cliente;
