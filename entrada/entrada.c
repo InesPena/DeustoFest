@@ -1,71 +1,86 @@
 #include "entrada.h"
+#include "../cliente/cliente.h"
+
+#define PRECIO_CAMP 35.00
+#define PRECIO_BUS 47.00
+
+/*
+ * Imprime los datos de una entrada por pantalla
+ */
 
 void imprimirEntrada(Entrada e)
 {
 
 
-}
-
-/* REVISAR */
-
-/*
- * Recupera los datos de la tabla entrada de la bd y crea devuleve una estructura
- * afroro formada por un array con las entradas y el número de entradas
- */
-
-Aforo selectEntradas(sqlite3 *db)
-{
-	Aforo a;
-	a.numEntradas = 0;
-
-	sqlite3_stmt *stmt;
-	int result;
-
-	char sql[] = "SELECT * FROM entrada";
-	sqlite3_prepare_v2(db, sql, strlen(sql), &stmt, NULL);
-
-	do {
-		result = sqlite3_step(stmt);
-		if (result == SQLITE_ROW)
-		{
-
-			a.entradas[result].cod = sqlite3_column_int(stmt, 0);
-			strcpy(a.entradas[result].dni, (char*)sqlite3_column_text(stmt, 1));
-			a.entradas[result].camping = sqlite3_column_int(stmt, 2);
-			a.entradas[result].bus = sqlite3_column_int(stmt, 3);
-			//a.entradas[result].precio = (float)sqlite3_column__int(stmt, 4);
-
-			a.numEntradas ++;
-		}
-
-	} while (result == SQLITE_ROW);
-
-	sqlite3_finalize(stmt);
-
-	return a;
-}
-
-/*
- * Calcula el porcentaje de asistencia al festival
- */
-
-float calcularAsistencia(Aforo a)
-{
 
 }
 
 /*
- * Calcula el total de ingresos recaudados por el festival
+ * Calcula el precio de la entrada en función de el tipo de entrada,
+ * si se ha elegido bus y si se ha elegido camping
  */
 
-float calcularIngersos(Aforo a)
+float calularPrecio(Entrada *e, float precioEnt)
 {
-	float ingresos = 0;
+	int precioTotal = 0;
 
-	for (int i = 0; i < a.numEntradas; i++)
-	{
+	precioTotal += precioEnt;
+	if (e->camping == 1)  precioTotal += PRECIO_CAMP;
+	if (e->bus == 1) precioTotal += PRECIO_BUS;
 
-	}
+	return precioTotal;
+}
 
-	return ingresos;
+/*
+ * Proceso para la compra de entradas
+ */
+
+void compraEntradas(Entrada *e, Cliente *c)
+{
+	int op;
+	float precioEnt;
+
+	e->camping = 0;
+	e->bus = 0;
+
+	printf("\n\n\tENTRADAS\n");
+	printf("--------------------------------\n\n");
+	printf("1. Entrada Día 22............75€\n");
+	printf("2. Entrada Día 23............80€\n");
+	printf("3. Abono completo...........142€\n");
+
+	op = elegirOpcion();
+
+	if (op == 1) precioEnt = 75;
+	if (op == 2) precioEnt = 80;
+	if (op == 3) precioEnt = 90;
+
+	char op2;
+	char op3;
+
+	printf("¿Desa reservar una plaza de camping? (s/n) ");
+	fflush(stdout);
+	scanf("%c",&op2);
+	if (op2 == 's') e->camping = 1;
+
+	printf("¿Desa reservar una plaza de autobus? (s/n) ");
+	fflush(stdout);
+	scanf("%c",&op3);
+	getchar();
+
+	if (op3 == 's') e->bus = 1;
+
+	e->precio = calularPrecio(&e, precioEnt);
+
+	printf("\nIntroduzca sus datos personales...\n\n");
+	pedirDatosCliente(&c);
+}
+
+/*
+ * Inserta una fila en la tabla entrada
+ */
+
+void insertEntrada(sqlite3 *db, Entrada *e)
+{
+	//FALTA POR HACER
 }

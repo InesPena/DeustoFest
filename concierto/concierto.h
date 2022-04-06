@@ -7,18 +7,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-/*
- * cod - Código del concierto
- * artista - Nombre del artista
- * escenario - codigo del escenario
- * dia - codigo del día
- */
-
 typedef struct {
 	int cod;
 	char *artista;
 	int escenario;
 	int dia;
+	int coste;
 
 } Concierto ;
 
@@ -31,6 +25,14 @@ void insertarConcierto(sqlite3 *db, Concierto *c);
 
 void eliminarConcierto(sqlite3 *db, int cod);
 
-void imprimirCartelera(sqlite3 *db);
+typedef struct {
+	int numConciertos;
+	Concierto *conciertos;
+
+}Cartelera;
+
+void obtenerCartelera(sqlite3 *db, Cartelera *cart);
+
+void imprimirCartelera(sqlite3 *bd,Cartelera *cart, int op);
 
 #endif /* CONCIERTO_CONCIERTO_H_ */

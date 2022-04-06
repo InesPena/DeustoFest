@@ -9,12 +9,6 @@
 
 #define MAX_ENTRADAS 1000
 
-typedef enum {
-	FALSE = 0,
-	TRUE = 1,
-
-}BOOLEAN;
-
 typedef struct {
 	int cod;
 	char dni[9];
@@ -32,10 +26,10 @@ typedef struct {
 
 void imprimirEntrada(Entrada e);
 
-Aforo selectEntradas(sqlite3 *db);
+void comprarEntradas();
 
-float calcularAsistencia(Aforo a);
+void insertEntrada(sqlite3 *db, Entrada *e);
 
-float calcularIngersos(Aforo a);
+float calularPrecio(Entrada *e, float precioEnt);
 
 #endif /* ENTRADA_ENTRADA_H_ */

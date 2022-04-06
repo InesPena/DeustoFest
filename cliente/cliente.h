@@ -5,15 +5,20 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "../sqlite3/sqlite3.h"
+
 typedef struct{
 
 	char dni[10];
 	char *nom;
 	char *mail;
-	int edad;
 
 } Cliente;
 
 void imprimirCliente(Cliente c);
+
+void pedirDatosCliente(Cliente *c);
+
+void insertCliente(sqlite3 *db, Cliente *c);
 
 #endif /* CLIENTE_CLIENTE_H_ */
