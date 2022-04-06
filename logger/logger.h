@@ -5,7 +5,10 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 void log(char msg[MAX_LOG]);
+
+void getFecha();
 
 #endif /* LOGGER_LOGGER_H_ */
