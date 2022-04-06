@@ -28,11 +28,12 @@ Aforo selectEntradas(sqlite3 *db)
 		result = sqlite3_step(stmt);
 		if (result == SQLITE_ROW)
 		{
+
 			a.entradas[result].cod = sqlite3_column_int(stmt, 0);
-			//a.entradas[result].dni = (char*)sqlite3_column_text(stmt, 1);
+			strcpy(a.entradas[result].dni, (char*)sqlite3_column_text(stmt, 1));
 			a.entradas[result].camping = sqlite3_column_int(stmt, 2);
 			a.entradas[result].bus = sqlite3_column_int(stmt, 3);
-			//a.entradas[result].precio = (float*)sqlite3_column__int(stmt, 4);
+			//a.entradas[result].precio = (float)sqlite3_column__int(stmt, 4);
 
 			a.numEntradas ++;
 		}
