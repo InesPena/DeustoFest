@@ -75,9 +75,8 @@ void compraEntradas(Entrada *e, Cliente *c)
 
 	printf("\nIntroduzca sus datos personales...\n\n");
 
-	pedirDatosCliente(&c);
-	printf("%s", c->dni);
-	//strcpy(e->dni, c->dni);
+	pedirDatosCliente(c);
+	strcpy(e->dni, c->dni);
 }
 
 /*
@@ -100,7 +99,9 @@ void insertEntrada(sqlite3 *db, Entrada *e)
 
 	result = sqlite3_step(stmt);
 	if (result != SQLITE_DONE)
-		printf("Error al realizar la compra \n");
+		printf("Error al realizar la compra\n");
+	else
+		printf("Compra completada\n");
 
 	sqlite3_finalize(stmt);
 }

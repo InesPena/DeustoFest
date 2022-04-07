@@ -33,8 +33,6 @@ void pedirDatosCliente(Cliente *c)
 	c->nombre = malloc((strlen(str) + 1) * sizeof(char));
 	strcpy(c->nombre, str);
 
-	//REVISAR
-
 	printf("E-Mail: ");
 	fflush(stdout);
 	fgets(str, MAX_LINE, stdin);

@@ -35,11 +35,6 @@ int main()
 
 	log("prueba");
 
-	Cliente *c;
-
-	pedirDatosCliente(&c);
-		printf("%s", c->dni);
-
 	menu();
 
     return 0;
@@ -76,7 +71,7 @@ void menu()
 				break;
 		}
 
-	}while (op != 3);
+	} while (op != 3);
 
 }
 
@@ -94,7 +89,7 @@ void menuAdmin()
 		printf("--------------------------------\n\n");
 		printf("1. Planificar Festival\n");
 		printf("2. Consultar programa\n");
-		printf("3. Ver lista de puestos de comida/bebida");
+		printf("3. Ver lista de puestos de comida/bebida\n");
 		printf("4. Consultar datos de cliente\n");
 		printf("5. Ver Estadísticas\n");
 		printf("6. Volver atrás\n");

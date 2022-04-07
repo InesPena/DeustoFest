@@ -63,7 +63,6 @@ void pedirDatosConcierto(sqlite3 *db,Concierto *c)
 
 }
 
-
 /*
  * Inserta una nueva fila en la tabla concierto de la bd
  */
