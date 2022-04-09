@@ -33,8 +33,6 @@ int main()
 {
 	sqlite3_open("sqlite3/deustoFest.sqlite", &db);
 
-	log("prueba");
-
 	menu();
 
     return 0;
