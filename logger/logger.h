@@ -8,8 +8,12 @@
 #include <string.h>
 #include <time.h>
 
-void log(char msg[MAX_LOG]);
+typedef enum
+{
+	INFO,
+	ERROR
 
-void getFecha();
+} TIPO;
 
+void log(char msg[MAX_LOG], TIPO tipo);
 #endif /* LOGGER_LOGGER_H_ */

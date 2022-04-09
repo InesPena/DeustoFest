@@ -1,22 +1,20 @@
 #include "logger.h"
 
-void log(char msg[200])
+void log(char msg[MAX_LOG], TIPO tipo)
 {
-	FILE *f;
-	f = fopen("logger/deustoFest.log", "w");
-
-	fprintf(f, msg);
-	fclose(f);
-}
-
-void getFecha() {
+	FILE *file;
+	file = fopen("logger/deustoFest.log", "a+");
 
 	time_t t;
-	struct tm *st ;
 	char *ch ;
 	time(&t);
 	ch = ctime(&t) ;
-	printf("ctime:%s\n", ch );
+	fprintf(file, "\n[%s]", ch);
+
+	if (tipo == INFO) fprintf(file, "INFO: ");
+	if (tipo == ERROR) fprintf(file, "ERROR: ");
+
+	fprintf(file, msg);
+
+	fclose(file);
 }
-
-
