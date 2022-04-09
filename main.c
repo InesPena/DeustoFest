@@ -138,6 +138,7 @@ void menuPlan()
 	int op;
 
 	Concierto *c;
+	Puesto *p;
 
 	do {
 		printf("\n\tPLANIFICAR FESTIVAL\n");
@@ -164,9 +165,14 @@ void menuPlan()
 		    	break;
 
 		    case 3:
+		    	printf("\nInserte los siguientes datos...\n\n");
+		    	pedirDatosPuesto(db, &p);
+		    	insertarPuesto(db, &p);
 		    	break;
 
 		    case 4:
+		    	printf("\nInserte el código del puesto a eliminar...\n\n");
+		    	eliminarPuesto(db, pedirCodigoPuesto());
 		    	break;
 
 		    case 5:
@@ -179,6 +185,7 @@ void menuPlan()
 
 	} while (op != 5);
 }
+
 
 /* ==================================================
  * 					CLIENTE
