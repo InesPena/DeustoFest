@@ -16,9 +16,14 @@ void menuCliente();
 
 int elegirOpcion();
 float porcentajeAsistencia(ListaEntradas l);
+int costes(ListaEntradas le, ListaPuestos lp);
+
 
 sqlite3 *db;
 Cartelera *cart;
+
+ListaEntradas lEntradas[MAX_ENTRADAS];
+ListaPuestos lPuestos[MAX_PUESTOS];
 
 
 
@@ -256,7 +261,10 @@ int ingresos(ListaEntradas l)
 
 }
 
+int costes(ListaEntradas le, ListaPuestos lp)
+{
 
+}
 
 int beneficio()
 {
