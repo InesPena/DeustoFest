@@ -21,6 +21,4 @@ void pedirDatosCliente(Cliente *c);
 
 void insertCliente(sqlite3 *db, Cliente *c);
 
-void consultarDatosCliente(sqlite3 *db, Cliente *c);
-
 #endif /* CLIENTE_CLIENTE_H_ */
