@@ -1,4 +1,5 @@
 #include "concierto.h"
+#include "../logger/logger.h"
 #include "../sqlite3/sqlite3.h"
 
 void selectDias(sqlite3 *db);
@@ -9,6 +10,7 @@ void selectEscenarios(sqlite3 *db);
 /* ==================================================
  * 						CONCIERTO
  * ==================================================
+ */
 
 /*
  * Pide el código de un concierto por consola
@@ -59,7 +61,7 @@ void pedirDatosConcierto(sqlite3 *db,Concierto *c)
 	printf("Coste del concierto: ");
 	fflush(stdout);
 	fgets(str, MAX_LINE, stdin);
-	sscanf(str, "%f", &c->coste);
+	sscanf(str, "%i", &c->coste);
 
 }
 
@@ -85,10 +87,17 @@ void insertarConcierto(sqlite3 *db, Concierto *c)
 
 	result = sqlite3_step(stmt);
 
-	if (result != SQLITE_DONE)
-		printf("Error añadiendo concierto\n");
-	else
-		printf("Concierto añadido correctamente\n");
+	char buffer[100];
+	sprintf(buffer, "INSERT INTO CONCIERTO (ARTISTA, COD_ESC, COD_DIA, COSTE) VALUES ('%s', %i, %i, %i)", c->artista, c->escenario, c->dia, c->coste);
+
+	if (result != SQLITE_DONE) {
+		log(buffer, ERROR);
+		printf("\nError añadiendo el artista\n");
+
+	} else  {
+		log(buffer, INFO);
+		printf("\nArtista añadido correctamente\n");
+	}
 
 	sqlite3_finalize(stmt);
 }
@@ -109,10 +118,17 @@ void eliminarConcierto(sqlite3 *db, int cod)
 
 	result = sqlite3_step(stmt);
 
-	if (result != SQLITE_DONE)
+	char buffer[100];
+	sprintf(buffer, "DELETE FROM CONCIERTO WHERE COD = %i", cod);
+
+	if (result != SQLITE_DONE){
+		log(buffer, ERROR);
 		printf("Error cancelando concierto\n");
-	else
+
+	} else {
+		log(buffer, ERROR);
 		printf("Concierto cancelado correctamente\n");
+	}
 
 	sqlite3_finalize(stmt);
 }
@@ -155,6 +171,9 @@ void obtenerCartelera(sqlite3 *db, Cartelera *cart)
 		pos ++;
 
 	} while (result == SQLITE_ROW);
+
+
+	log(sql2, INFO);
 
 	sqlite3_finalize(stmt);
 }
@@ -238,6 +257,8 @@ void selectEscenarios(sqlite3 *db)
 	} while (result == SQLITE_ROW);
 	printf("\n");
 
+	log(sql, INFO);
+
 	sqlite3_finalize(stmt);
 }
 
@@ -261,6 +282,8 @@ void selectDias(sqlite3 *db)
 
 	} while (result == SQLITE_ROW);
 	printf("\n");
+
+	log(sql, INFO);
 
 	sqlite3_finalize(stmt);
 }

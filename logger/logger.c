@@ -9,7 +9,7 @@ void log(char msg[MAX_LOG], TIPO tipo)
 	char *ch ;
 	time(&t);
 	ch = ctime(&t) ;
-	fprintf(file, "\n[%s]", ch);
+	fprintf(file, "\n%s", ch);
 
 	if (tipo == INFO) fprintf(file, "INFO: ");
 	if (tipo == ERROR) fprintf(file, "ERROR: ");
