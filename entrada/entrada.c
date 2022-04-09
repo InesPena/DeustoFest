@@ -1,4 +1,5 @@
 #include "entrada.h"
+#include "../logger/logger.h"
 #include "../cliente/cliente.h"
 
 #define PRECIO_CAMP 35
@@ -98,10 +99,17 @@ void insertEntrada(sqlite3 *db, Entrada *e)
 	sqlite3_bind_int(stmt, 4, e->precio);
 
 	result = sqlite3_step(stmt);
-	if (result != SQLITE_DONE)
+
+	char buffer[100];
+	sprintf(buffer, "INSERT INTO CLIENTE (DNI, CAMPING,BUS, PRECIO) VALUES ('%s', %i, %i, %i)", e->dni, e->camping, e->bus, e->precio);
+
+	if (result != SQLITE_DONE){
+		log(buffer, ERROR);
 		printf("Error al realizar la compra\n");
-	else
+	} else {
+		log(buffer, INFO);
 		printf("Compra completada\n");
+	}
 
 	sqlite3_finalize(stmt);
 }

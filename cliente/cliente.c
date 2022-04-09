@@ -1,4 +1,5 @@
 #include "cliente.h"
+#include "../logger/logger.h"
 #include "../sqlite3/sqlite3.h"
 
 #define MAX_LINE 20

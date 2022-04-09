@@ -16,6 +16,7 @@ void menuCliente();
 
 int elegirOpcion();
 float porcentajeAsistencia(ListaEntradas l);
+
 sqlite3 *db;
 Cartelera *cart;
 
@@ -31,8 +32,6 @@ int main()
 	sqlite3_open("sqlite3/deustoFest.sqlite", &db);
 
 	obtenerCartelera(db, &cart);
-
-	log("prueba", INFO);
 
 	menu();
 
