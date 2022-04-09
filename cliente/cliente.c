@@ -10,7 +10,7 @@
 
 void imprimirCliente(Cliente c)
 {
-
+	printf("Dni: %s, Nombre: %s, E-mail: %s", c.dni, c.nombre, c.mail);
 }
 
 /*
