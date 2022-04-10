@@ -24,5 +24,6 @@ int pedirCodigoPuesto();
 void pedirDatosPuesto(sqlite3 *db, Puesto *p);
 void insertarPuesto(sqlite3 *db, Puesto *p);
 void eliminarPuesto(sqlite3 *db, int cod);
+void imprimirPuesto(sqlite3 *db);
 
 #endif /* PUESTO_PUESTO_H_ */
