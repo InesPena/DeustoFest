@@ -86,6 +86,7 @@ void menu()
 void menuAdmin()
 {
 	int op;
+	Cliente *cl;
 
 	do {
 		printf("\n\n\tADMINISTRADOR\n");
@@ -113,6 +114,7 @@ void menuAdmin()
 	             break;
 
 	         case 4:
+	        	 consultarDatosCliente(db, &cl);
 	        	 break;
 
 	         case 5:
