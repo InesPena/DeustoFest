@@ -111,6 +111,7 @@ void menuAdmin()
 	        	 break;
 
 	         case 3:
+	        	 imprimirPuesto(db);
 	             break;
 
 	         case 4:
@@ -172,12 +173,15 @@ void menuPlan()
 		    	break;
 
 		    case 3:
+		    	printf("\nInserte los siguientes datos...\n\n");
 		    	pedirDatosPuesto(db, &p);
 		    	insertarPuesto(db, &p);
-		    	eliminarPuesto(db, pedirCodigoPuesto());
 		    	break;
 
 		    case 4:
+		    	printf("\nInserte el código del puesto...\n\n");
+		    	imprimirPuesto(db);
+		    	eliminarPuesto(db, pedirCodigoPuesto());
 		    	break;
 
 		    case 5:
