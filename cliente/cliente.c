@@ -84,31 +84,32 @@ void consultarDatosCliente(sqlite3 *db, Cliente *c){
 	sqlite3_stmt *stmt;
 	int result;
 
-	char sql[] = "SELECT CLIENTE.DNI, CLIENTE.NOMBRE, CLIENTE.MAIL, ENTRADA.COD "
-			"FROM CLIENTE, ENTRADA "
+	char sql[] = "SELECT CL.DNI, CL.NOMBRE, CL.MAIL, E.COD, E.CAMPING, E.BUS "
+			"FROM CLIENTE CL, ENTRADA E "
 			"WHERE CLIENTE.DNI=ENTRADA.DNI AND CLIENTE.DNI = ?";
 
 	sqlite3_prepare_v2(db, sql, strlen(sql)+1, &stmt, NULL);
 	sqlite3_bind_text(stmt, 1, c->dni, strlen(c->dni), SQLITE_STATIC);
-	printf("DNI: \t\t\t");
-	printf("NOMBRE: \t\t");
-	printf("MAIL: \t\t\t");
-	printf("COD_E: \t\t\t");
-	printf("\n");
+
 	do {
 		result = sqlite3_step(stmt);
 		if (result == SQLITE_ROW)
 		{
+			printf("\n\nDNI: \t%s", (char*)sqlite3_column_text(stmt, 0));
+			printf("\nNOMBRE: \t%s", (char*)sqlite3_column_text(stmt, 1));
+			printf("\nMAIL: \t%s", (char*)sqlite3_column_text(stmt, 2));
+			printf("COD_E: \t%i", sqlite3_column_int(stmt, 3));
 
-			printf("%s\t\t", (char*)sqlite3_column_text(stmt, 0));
-			printf("%s\t\t", (char*)sqlite3_column_text(stmt, 1));
-			printf("%s\t\t", (char*)sqlite3_column_text(stmt, 2));
-			printf("%i\t\t", sqlite3_column_int(stmt, 3));
+			printf("\nCAMPING: \t");
+			if (sqlite3_column_int(stmt, 4) == 1) printf("SI");
+			else printf("NO");
 
+			printf("\nBUS: \t");
+			if (sqlite3_column_int(stmt, 5) == 1) printf("SI");
+			else printf("NO");
 		}
-		printf("\n");
 	} while (result == SQLITE_ROW);
-
+	printf("\n");
 
 	sqlite3_finalize(stmt);
 }
