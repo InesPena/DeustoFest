@@ -90,22 +90,18 @@ void eliminarPuesto(sqlite3 *db, int cod){
 	sqlite3_finalize(stmt);
 }
 
-/*
- * Imprime los puestos
- */
-
 void imprimirPuesto(sqlite3 *db){
 	sqlite3_stmt *stmt;
 	int result;
 
-	char sql[] = "SELECT * FORM PUESTO";
-	sqlite3_prepare_v2(db, sql, strlen(sql), &stmt, NULL);
+	char sql[] = "SELECT * FROM PUESTO";
+	sqlite3_prepare_v2(db,sql,strlen(sql),&stmt,NULL);
 
 	printf("\n\tPUESTOS\n");
 	do{
 		result = sqlite3_step(stmt);
 		if(result == SQLITE_ROW){
-			printf("\t%i -  %s -  %i", sqlite3_column_int(stmt,0), (char*)sqlite3_column_text(stmt, 1), sqlite3_column_int(stmt, 2));
+			printf("\t%i - %s - %i", sqlite3_column_int(stmt,0), (char*)sqlite3_column_text(stmt,1), sqlite3_column_int(stmt,2));
 		}
 	}while(result == SQLITE_ROW);
 
