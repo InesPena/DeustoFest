@@ -17,6 +17,7 @@ void menuCliente();
 
 int elegirOpcion();
 int costes(sqlite3 *db);
+int beneficio(sqlite3 *db, ListaEntradas l);
 
 sqlite3 *db;
 Cartelera *cart;
@@ -105,6 +106,7 @@ void menuAdmin()
 {
 	int op;
 	Cliente *cl;
+	ListaEntradas l;
 
 	do {
 		printf("\n\n\tADMINISTRADOR\n");
@@ -144,7 +146,8 @@ void menuAdmin()
 				 printf("Ingreso total = \n");
 				 int coste = costes(db);
 				 printf("Coste total = %i\n", coste);
-				 printf("Beneficio total = \n");
+				 int benef = beneficio(db, l);
+				 printf("Beneficio total = %i\n", benef);
 				 break;
 
 	         case 6:
@@ -313,11 +316,15 @@ int costes(sqlite3 *db)
 	return costeTotal;
 }
 
-int beneficio()
+int beneficio(sqlite3 *db, ListaEntradas l)
 {
+	int ing = ingresos(l);
+	int cost = costes(db);
 
-
+	int beneficio = ing - cost;
+	return beneficio;
 }
+
 
 
 
