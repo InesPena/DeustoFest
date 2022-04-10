@@ -4,6 +4,7 @@
 #include "sqlite3/sqlite3.h"
 #include "logger/logger.h"
 #include "puesto/puesto.h"
+#include "properties/properties.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -36,23 +37,22 @@ int main()
 
 	Properties prop;
 	FILE *file;
-	if ((file = fopen("config.prop", "r"))) {
+	if ((file = fopen("config.properties", "r"))) {
 		fclose(file);
-		cargarProperties(&prop, "config.prop");
+		cargarProperties(&prop, "config.properties");
 	} else {
-		sizeof(prop->clave) = 2;
-		char **clave = malloc(sizeof(char*) * sizeof(prop->clave));
+		int num = 2;
+		char **clave = malloc(sizeof(char*) * num);
 		clave[0] = "Ultima Conexión";
 		clave[1] = "Opción seleccionada";
 
 
-		char **valor = malloc(sizeof(char*) * sizeof(prop->clave));
+		char **valor = malloc(sizeof(char*) * num);
 		valor[0] = "2022-03-12 18:30";
 		valor[1] = "2";
 
-		crearProperties(&prop, "config.prop");
+		crearProperties(&prop, "config.properties");
 	}
-
 
 	obtenerCartelera(db, &cart);
 
@@ -315,6 +315,7 @@ int costes(sqlite3 *db)
 
 int beneficio()
 {
+
 
 }
 

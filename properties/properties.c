@@ -1,5 +1,5 @@
 
-#include "cliente.h"
+#include "properties.h"
 #include "../sqlite3/sqlite3.h"
 
 
@@ -7,8 +7,8 @@ void crearProperties(Properties *properties, char name[]) {
 	FILE *f = fopen(name, "w");
 
 	for (int i = 0; i < sizeof(properties->clave); i++) {
-		fprintf(f, "-%s: ", properties->clave[i]); //NOMBRE DE LA PROPIEDAD
-		fprintf(f, "%s\n", properties->valor[i]); //VALOR DE LA PROPIEDAD
+		fprintf(f, "-%s: ", properties->clave[i]);
+		fprintf(f, "%s\n", properties->valor[i]);
 	}
 	fclose(f);
 
