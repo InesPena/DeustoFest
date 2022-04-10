@@ -57,9 +57,14 @@ void insertarPuesto(sqlite3 *db, Puesto *p){
 
 	result = sqlite3_step(stmt);
 
+	char buffer[100];
+	sprintf(buffer, "INSERTAR INTO PUESTO(MARCA, COSTE) VALUES ('%s', %i)", p->marca, p->coste);
+
 	if(result != SQLITE_DONE){
+		log(buffer, ERROR);
 		printf("Error añadiendo puesto\n");
 	}else{
+		log(buffer, INFO);
 		printf("Puesto añadido correctamente\n");
 	}
 
@@ -81,9 +86,14 @@ void eliminarPuesto(sqlite3 *db, int cod){
 
 	result = sqlite3_step(stmt);
 
+	char buffer[100];
+	sprintf(buffer, "DELETE FROM PUESTO WHERE COD = %i", cod);
+
 	if(result != SQLITE_DONE){
+		log(buffer, ERROR);
 		printf("Error eliminando puesto\n");
 	}else{
+		log(buffer, INFO);
 		printf("Puesto eliminado correctamente\n");
 	}
 
