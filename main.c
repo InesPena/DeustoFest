@@ -34,6 +34,26 @@ int main()
 {
 	sqlite3_open("sqlite3/deustoFest.sqlite", &db);
 
+	Properties prop;
+	FILE *file;
+	if ((file = fopen("config.prop", "r"))) {
+		fclose(file);
+		cargarProperties(&prop, "config.prop");
+	} else {
+		sizeof(prop->clave) = 2;
+		char **clave = malloc(sizeof(char*) * sizeof(prop->clave));
+		clave[0] = "Ultima Conexión";
+		clave[1] = "Opción seleccionada";
+
+
+		char **valor = malloc(sizeof(char*) * sizeof(prop->clave));
+		valor[0] = "2022-03-12 18:30";
+		valor[1] = "2";
+
+		crearProperties(&prop, "config.prop");
+	}
+
+
 	obtenerCartelera(db, &cart);
 
 	menu();
