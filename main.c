@@ -119,7 +119,9 @@ void menuAdmin()
 
 	         case 5:
 	        	 printf("  ESTADÍSTICAS\n");
-	        	 printf("Asistencia (%%) = \n");
+	        	 ;
+	        	 float porcentaje = porcentajeAsistencia(db);
+	        	 printf("Asistencia = %.2f%% \n", porcentaje);
 	        	 printf("Reacudación total = \n");
 	             break;
 
@@ -251,11 +253,6 @@ int elegirOpcion()
 	getchar();
 
 	return op;
-}
-
-float porcentajeAsistencia(ListaEntradas l)
-{
-
 }
 
 int ingresos(ListaEntradas l)

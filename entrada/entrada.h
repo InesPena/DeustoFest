@@ -32,4 +32,7 @@ void insertEntrada(sqlite3 *db, Entrada *e);
 
 int calularPrecio(Entrada *e, int precioEnt);
 
+float porcentajeAsistencia(sqlite3 *db);
+
+
 #endif /* ENTRADA_ENTRADA_H_ */

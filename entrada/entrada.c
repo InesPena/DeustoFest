@@ -113,3 +113,24 @@ void insertEntrada(sqlite3 *db, Entrada *e)
 
 	sqlite3_finalize(stmt);
 }
+
+float porcentajeAsistencia(sqlite3 *db)
+{
+
+	sqlite3_stmt *stmt;
+		int result;
+
+		char sql[] = "SELECT COUNT(ENTRADA.COD) FROM ENTRADA";
+
+		sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL);
+
+		result = sqlite3_step(stmt);
+		int entradas = sqlite3_column_int(stmt, 0);
+		float porcentaje = ((float)entradas/(float)MAX_ENTRADAS)*100;
+		/*printf("%i \n", MAX_ENTRADAS);
+		printf("%i \n", entradas);
+		printf("%f", porcentaje);*/
+
+		return porcentaje;
+
+}
