@@ -15,7 +15,7 @@ void menuPlan();
 void menuCliente();
 
 int elegirOpcion();
-float porcentajeAsistencia(ListaEntradas l);
+//float porcentajeAsistencia(ListaEntradas l);
 int costes(ListaEntradas le, ListaPuestos lp);
 
 
