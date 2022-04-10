@@ -15,9 +15,7 @@ void menuPlan();
 void menuCliente();
 
 int elegirOpcion();
-//float porcentajeAsistencia(ListaEntradas l);
-int costes(ListaEntradas le, ListaPuestos lp);
-
+int costes(sqlite3 *db);
 
 sqlite3 *db;
 Cartelera *cart;
@@ -120,11 +118,14 @@ void menuAdmin()
 
 	         case 5:
 	        	 printf("  ESTADÍSTICAS\n");
-	        	 ;
-	        	 float porcentaje = porcentajeAsistencia(db);
-	        	 printf("Asistencia = %.2f%% \n", porcentaje);
-	        	 printf("Reacudación total = \n");
-	             break;
+				 ;
+				 float porcentaje = porcentajeAsistencia(db);
+				 printf("Asistencia = %.2f%% \n", porcentaje);
+				 printf("Ingreso total = \n");
+				 int coste = costes(db);
+				 printf("Coste total = %i\n", coste);
+				 printf("Beneficio total = \n");
+				 break;
 
 	         case 6:
 	         	 break;
@@ -264,9 +265,32 @@ int ingresos(ListaEntradas l)
 
 }
 
-int costes(ListaEntradas le, ListaPuestos lp)
+int costes(sqlite3 *db)
 {
+	sqlite3_stmt *stmt;
+	int result;
+	int costeEntradas = 0;
+	int costePuestos = 0;
 
+	char sql[] = "SELECT SUM(COSTE) FROM CONCIERTO";
+	sqlite3_prepare_v2(db, sql, strlen(sql)+1, &stmt, NULL);
+	result = sqlite3_step(stmt);
+	if(result == SQLITE_ROW){
+		costeEntradas = sqlite3_column_int(stmt, 0);
+		sqlite3_finalize(stmt);
+	}
+
+	char sql2[] = "SELECT SUM(COSTE) FROM PUESTO";
+	sqlite3_prepare_v2(db, sql2, strlen(sql2)+1, &stmt, NULL);
+	result = sqlite3_step(stmt);
+	if(result == SQLITE_ROW){
+		costePuestos = sqlite3_column_int(stmt, 0);
+		sqlite3_finalize(stmt);
+	}
+
+	int costeTotal = costeEntradas+costePuestos;
+
+	return costeTotal;
 }
 
 int beneficio()

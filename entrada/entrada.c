@@ -126,11 +126,13 @@ float porcentajeAsistencia(sqlite3 *db)
 
 		result = sqlite3_step(stmt);
 		int entradas = sqlite3_column_int(stmt, 0);
+
+		sqlite3_finalize(stmt);
+
 		float porcentaje = ((float)entradas/(float)MAX_ENTRADAS)*100;
 		/*printf("%i \n", MAX_ENTRADAS);
 		printf("%i \n", entradas);
 		printf("%f", porcentaje);*/
 
 		return porcentaje;
-
 }
