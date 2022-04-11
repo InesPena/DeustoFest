@@ -3,26 +3,31 @@
 #include "../sqlite3/sqlite3.h"
 
 
-void crearProperties(Properties *properties, char name[]) {
-	FILE *f = fopen(name, "w");
+void crearProperties(Properties *properties)
+{
+	FILE *f = fopen("properties/file.properties", "w");
 
-	for (int i = 0; i < sizeof(properties->clave); i++) {
-		fprintf(f, "-%s: ", properties->clave[i]);
+	for (int i = 0; i < properties->num; i++) {
+
+		fprintf(f, "%s: ", properties->clave[i]);
 		fprintf(f, "%s\n", properties->valor[i]);
 	}
-	fclose(f);
 
+	fclose(f);
 }
 
-void cargarProperties(Properties *properties, char name[]) {
-	FILE *f = fopen(name, "r");
+
+void cargarProperties(Properties *properties)
+{
+	FILE *f = fopen("properties/file.properties", "r");
 
 	char buffer[2000];
 	char *linea;
+
 	while (fgets(buffer, 2000, f)) {
 		linea = strtok(buffer, ":");
 		printf("%s", linea);
-		for(int i = 0; i < sizeof(linea)-2 ; i++)
+		for(int i = 0; i < properties->num-2 ; i++)
 			{
 				printf("%i \n",i);
 				if(i % 2 == 0){

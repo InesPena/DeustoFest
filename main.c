@@ -19,6 +19,7 @@ void menuCliente();
 int elegirOpcion();
 int costes();
 int beneficio(sqlite3 *db, ListaEntradas l);
+void properties();
 
 sqlite3 *db;
 
@@ -42,24 +43,7 @@ int main()
 	obtenerCartelera(db, pCart);
 	le = &lEntradas;
 
-	Properties prop;
-	FILE *file;
-	if ((file = fopen("config.properties", "r"))) {
-		fclose(file);
-		cargarProperties(&prop, "config.properties");
-	} else {
-		int num = 2;
-		char **clave = malloc(sizeof(char*) * num);
-		clave[0] = "Ultima Conexión";
-		clave[1] = "Opción seleccionada";
 
-
-		char **valor = malloc(sizeof(char*) * num);
-		valor[0] = "2022-03-12 18:30";
-		valor[1] = "2";
-
-		crearProperties(&prop, "config.properties");
-	}
 
 	menu();
 
@@ -357,4 +341,39 @@ int costes(sqlite3 *db)
 int beneficio(sqlite3 *db, ListaEntradas l)
 {
 	return ingresos(l) - costes(db);
+}
+
+void properties()
+{
+	char **clave = malloc(sizeof(char*) * prop.num);
+	clave[0] = "Ultima Conexión";
+	clave[1] = "Opción seleccionada";
+	prop.clave = clave;
+
+
+	char **valor = malloc(sizeof(char*) * prop.num);
+	valor[0] = "2022-03-12 18:30";
+	valor[1] = "2";
+	prop.valor = valor;
+
+	crearProperties(&prop);
+
+	/*Properties prop;
+		FILE *file;
+		if ((file = fopen("config.properties", "r"))) {
+			fclose(file);
+			cargarProperties(&prop, "config.properties");
+		} else {
+			int num = 2;
+			char **clave = malloc(sizeof(char*) * num);
+			clave[0] = "Ultima Conexión";
+			clave[1] = "Opción seleccionada";
+
+
+			char **valor = malloc(sizeof(char*) * num);
+			valor[0] = "2022-03-12 18:30";
+			valor[1] = "2";
+
+			crearProperties(&prop, "config.properties");
+		}*/
 }
