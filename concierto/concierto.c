@@ -1,6 +1,4 @@
 #include "concierto.h"
-#include "../logger/logger.h"
-#include "../sqlite3/sqlite3.h"
 
 void selectDias(sqlite3 *db);
 void selectEscenarios(sqlite3 *db);

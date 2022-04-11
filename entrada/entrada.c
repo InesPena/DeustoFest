@@ -1,6 +1,4 @@
 #include "entrada.h"
-#include "../logger/logger.h"
-#include "../cliente/cliente.h"
 
 #define PRECIO_CAMP 35
 #define PRECIO_BUS 47

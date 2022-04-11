@@ -2,6 +2,11 @@
 #define PUESTO_PUESTO_H_
 
 #include "../sqlite3/sqlite3.h"
+#include "../logger/logger.h"
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
 #define MAX_PUESTOS 20
 

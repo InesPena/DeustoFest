@@ -6,6 +6,7 @@
 #include <string.h>
 
 #include "../sqlite3/sqlite3.h"
+#include "../logger/logger.h"
 
 typedef struct{
 

@@ -1,9 +1,4 @@
 #include "puesto.h"
-#include "../sqlite3/sqlite3.h"
-#include "../logger/logger.h"
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 
 #define MAX_LINE 20
 

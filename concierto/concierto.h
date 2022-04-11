@@ -2,6 +2,7 @@
 #define CONCIERTO_CONCIERTO_H_
 
 #include "../sqlite3/sqlite3.h"
+#include "../logger/logger.h"
 
 #include <stdio.h>
 #include <stdlib.h>

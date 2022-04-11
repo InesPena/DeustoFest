@@ -6,6 +6,8 @@
 #include <string.h>
 
 #include "../sqlite3/sqlite3.h"
+#include "../logger/logger.h"
+#include "../cliente/cliente.h"
 
 #define MAX_ENTRADAS 1000
 
