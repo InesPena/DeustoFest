@@ -28,7 +28,7 @@ typedef struct {
 
 void imprimirEntrada(Entrada e);
 
-void comprarEntradas();
+void compraEntradas(Entrada *e, Cliente *c);
 
 void insertEntrada(sqlite3 *db, Entrada *e);
 
