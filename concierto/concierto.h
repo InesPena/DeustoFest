@@ -1,12 +1,12 @@
 #ifndef CONCIERTO_CONCIERTO_H_
 #define CONCIERTO_CONCIERTO_H_
 
-#include "../sqlite3/sqlite3.h"
-#include "../logger/logger.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "../sqlite3/sqlite3.h"
+#include "../logger/logger.h"
 
 typedef struct {
 	int cod;
@@ -26,7 +26,7 @@ void insertarConcierto(sqlite3 *db, Concierto *c);
 
 void eliminarConcierto(sqlite3 *db, int cod);
 
-int costesConciertos(sqlite *db);
+int costesConciertos(sqlite3 *db);
 
 typedef struct {
 	int numConciertos;

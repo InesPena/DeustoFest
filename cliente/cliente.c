@@ -1,5 +1,7 @@
 #include "cliente.h"
 
+#include "../sqlite3/sqlite3.h"
+
 #define MAX_LINE 20
 
 /*
@@ -109,7 +111,7 @@ void consultarDatosCliente(sqlite3 *db, Cliente *c){
 	} while (result == SQLITE_ROW);
 	printf("\n");
 
-	char buffer[100];ç
+	char buffer[100];
 
 	sprintf(buffer, "SELECT CL.DNI, CL.NOMBRE, CL.MAIL, E.COD, E.CAMPING, E.BUS"
 			"FROM CLIENTE CL, ENTRADA E"

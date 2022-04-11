@@ -44,7 +44,7 @@ void pedirDatosPuesto(sqlite3 *db, Puesto *p)
  * Inserta una nueva fila en la tabla puesto de la bd
  */
 
-void insertarPuesto(sqlite3 *db, Puesto *p)ç
+void insertarPuesto(sqlite3 *db, Puesto *p)
 {
 	sqlite3_stmt *stmt;
 	int result;
@@ -139,7 +139,7 @@ int costesPuestos(sqlite3 *db)
 	result = sqlite3_step(stmt);
 
 	if(result == SQLITE_ROW){
-		costePuestos = sqlite3_column_int(stmt, 0);
+		coste = sqlite3_column_int(stmt, 0);
 	}
 
 	log(sql, INFO);

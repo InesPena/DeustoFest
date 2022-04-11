@@ -131,7 +131,7 @@ void eliminarConcierto(sqlite3 *db, int cod)
 	sqlite3_finalize(stmt);
 }
 
-int costesConciertos(sqlite *db)
+int costesConciertos(sqlite3 *db)
 {
 	sqlite3_stmt *stmt;
 	int result;
@@ -143,7 +143,7 @@ int costesConciertos(sqlite *db)
 	result = sqlite3_step(stmt);
 
 	if(result == SQLITE_ROW){
-		costeEntradas = sqlite3_column_int(stmt, 0);
+		coste = sqlite3_column_int(stmt, 0);
 	}
 
 	log(sql, INFO);

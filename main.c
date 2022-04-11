@@ -20,10 +20,11 @@ int elegirOpcion();
 int costes();
 int beneficio(sqlite3 *db, ListaEntradas l);
 
-void freeAll();
-
 sqlite3 *db;
-Cartelera *cart;
+
+Cartelera *pCart;
+Cartelera cart;
+
 ListaEntradas lEntradas[MAX_ENTRADAS];
 
 
@@ -35,6 +36,9 @@ ListaEntradas lEntradas[MAX_ENTRADAS];
 int main()
 {
 	sqlite3_open("sqlite3/deustoFest.sqlite", &db);
+
+	pCart = &cart;
+	obtenerCartelera(db, pCart);
 
 	Properties prop;
 	FILE *file;
@@ -54,8 +58,6 @@ int main()
 
 		crearProperties(&prop, "config.properties");
 	}
-
-	obtenerCartelera(db, &cart);
 
 	menu();
 
@@ -88,7 +90,9 @@ void menu()
 
 			case 3:
 				sqlite3_close(db);
-				free(cart);
+				free(pCart);
+				free(db);
+
 				printf("\nSaliendo del programa...");
 				break;
 		}
@@ -105,7 +109,11 @@ void menu()
 void menuAdmin()
 {
 	int op;
-	Cliente *cl;
+
+	Cliente *pCl;
+	Cliente cl;
+	pCl = &cl;
+
 	ListaEntradas l;
 
 	do {
@@ -127,7 +135,7 @@ void menuAdmin()
 	     		break;
 
 	         case 2:
-	        	 imprimirCartelera(db, &cart, 2);
+	        	 imprimirCartelera(db, pCart, 2);
 	        	 break;
 
 	         case 3:
@@ -135,19 +143,22 @@ void menuAdmin()
 	             break;
 
 	         case 4:
-	        	 consultarDatosCliente(db, &cl);
+	        	 consultarDatosCliente(db, pCl);
 	        	 break;
 
 	         case 5:
 	        	 printf("\tESTADÍSTICAS\n");
 	        	 printf("--------------------------------\n\n");
 				 printf("Asistencia = \t%.2f%% \n", porcentajeAsistencia(db));
-				 printf("Ingreso total = \t%i\n");
+				 printf("Ingreso total = \t\n");
 				 printf("Coste total = \t%i\n", costes(db));
-				 printf("Beneficio total = \t%i\n", beneficio(bd, l));
+				 printf("Beneficio total = \t%i\n", beneficio(db, l));
 				 break;
 
 	         case 6:
+	        	 free(pCl->nombre);
+	        	 free(pCl->mail);
+	        	 free(pCl);
 	         	 break;
 
 	         default:
@@ -166,8 +177,13 @@ void menuPlan()
 {
 	int op;
 
-	Concierto *c;
-	Puesto *p;
+	Concierto *pCon;
+	Concierto con;
+	pCon = &con;
+
+	Puesto *pPu;
+	Puesto pu;
+	pPu = &pu;
 
 	do {
 		printf("\n\tPLANIFICAR FESTIVAL\n");
@@ -184,8 +200,8 @@ void menuPlan()
 
 			case 1:
 				printf("\nInserte los siguientes datos...\n\n");
-				pedirDatosConcierto(db, &c);
-				insertarConcierto(db, &c);
+				pedirDatosConcierto(db, pCon);
+				insertarConcierto(db, pCon);
 				break;
 
 		    case 2:
@@ -195,8 +211,8 @@ void menuPlan()
 
 		    case 3:
 		    	printf("\nInserte los siguientes datos...\n\n");
-		    	pedirDatosPuesto(db, &p);
-		    	insertarPuesto(db, &p);
+		    	pedirDatosPuesto(db, pPu);
+		    	insertarPuesto(db, pPu);
 		    	break;
 
 		    case 4:
@@ -206,6 +222,10 @@ void menuPlan()
 		    	break;
 
 		    case 5:
+		    	free(pCon->artista);
+		    	free(pCon);
+		    	free(pPu->marca);
+		    	free(pPu);
 		    	break;
 
 		    default:
@@ -225,8 +245,13 @@ void menuCliente()
 {
 	int op;
 
-	Entrada *e;
-	Cliente *c;
+	Entrada *pEnt;
+	Entrada ent;
+	pEnt = &ent;
+
+	Cliente *pCl;
+	Cliente cl;
+	pCl = &cl;
 
 	do {
 		printf("\n\n\tCLIENTE\n");
@@ -240,21 +265,21 @@ void menuCliente()
 		switch (op) {
 
 			case 1:
-				imprimirCartelera(db, &cart, 1);
+				imprimirCartelera(db, pCart, 1);
 				break;
 
 			case 2:
-				for (int i = 0; i < lEntradas.numEntradas; i++)
-				{
-					compraEntradas(&e, &c);
-					//insertCliente(db, &c);
-					//insertEntrada(db, &e);
-				} else {
-					printf("ERROR. No quedan entradas disponibles");
-				}
+				compraEntradas(pEnt, pCl);
+				//insertCliente(db, &c);
+				//insertEntrada(db, &e);
+
 				break;
 
 			case 3:
+				free(pEnt);
+				free(pCl->nombre);
+				free(pCl->mail);
+				free(pCl);
 				break;
 
 			default:
@@ -325,11 +350,3 @@ int beneficio(sqlite3 *db, ListaEntradas l)
 {
 	return ingresos(l) - costes(db);
 }
-
-
-void freeAll()
-{
-	free(bd);
-	free(cart);
-}
-
