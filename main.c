@@ -344,13 +344,13 @@ void properties()
 {
 	char **clave = malloc(sizeof(char*) * prop.num);
 	clave[0] = "Ultima Conexión";
-	clave[1] = "Opción seleccionada";
+	clave[1] = "Accedido desde";
 	prop.clave = clave;
 
 
 	char **valor = malloc(sizeof(char*) * prop.num);
 	valor[0] = "2022-03-12 18:30";
-	valor[1] = "2";
+	valor[1] = "Administrador";
 	prop.valor = valor;
 
 	crearProperties(&prop);
