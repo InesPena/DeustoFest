@@ -125,3 +125,32 @@ float porcentajeAsistencia(sqlite3 *db)
 
 	return ((float)entradas/(float)MAX_ENTRADAS)*100;;
 }
+
+void obtenerEntradas(sqlite3 *db, ListaEntradas *le){
+	sqlite3_stmt *stmt;
+	int result,pos = 0;
+
+	char sql[] = "SELECT COUNT(*) FROM ENTRADA";
+	sqlite3_prepare_v2(db,sql,strlen(sql),&stmt,NULL);
+	result = sqlite3_step(stmt);
+	le->numEntradas = sqlite3_column_int(stmt,0);
+
+	char sql2[] = "SELECT * FROM ENTRADA";
+	sqlite3_prepare_v2(db,sql2,strlen(sql2),&stmt,NULL);
+
+	do{
+		result = sqlite3_step(stmt);
+		if(result == SQLITE_ROW){
+			le->entradas[pos].cod = sqlite3_column_int(stmt, 0);
+			strcpy(le->entradas[pos].dni, (char*)sqlite3_column_text(stmt,1));
+			le->entradas[pos].camping = sqlite3_column_int(stmt,2);
+			le->entradas[pos].bus = sqlite3_column_int(stmt,3);
+			le->entradas[pos].precio = sqlite3_column_int(stmt,4);
+		}
+		pos++;
+	}while(result == SQLITE_ROW);
+
+	log(sql2, INFO);
+
+	sqlite3_finalize(stmt);
+}

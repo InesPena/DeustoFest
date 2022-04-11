@@ -24,6 +24,7 @@ sqlite3 *db;
 
 Cartelera *pCart;
 Cartelera cart;
+ListaEntradas *le;
 
 ListaEntradas lEntradas[MAX_ENTRADAS];
 
@@ -39,6 +40,7 @@ int main()
 
 	pCart = &cart;
 	obtenerCartelera(db, pCart);
+	le = &lEntradas;
 
 	Properties prop;
 	FILE *file;
@@ -150,7 +152,7 @@ void menuAdmin()
 	        	 printf("\tESTADÍSTICAS\n");
 	        	 printf("--------------------------------\n\n");
 				 printf("Asistencia = \t%.2f%% \n", porcentajeAsistencia(db));
-				 printf("Ingreso total = \t\n");
+				 printf("Ingreso total = \t%i\n", ingresos(le));
 				 printf("Coste total = \t%i\n", costes(db));
 				 printf("Beneficio total = \t%i\n", beneficio(db, l));
 				 break;
@@ -312,7 +314,13 @@ int elegirOpcion()
 
 int ingresos(ListaEntradas l)
 {
+	int ingresos=0;
 
+	for(int i=0; i<le.numEntradas;i++){
+		ingresos += le.entradas[i].precio;
+	}
+
+	return ingresos;
 }
 
 int costes(sqlite3 *db)
