@@ -1,10 +1,11 @@
 #include "entrada/entrada.h"
 #include "cliente/cliente.h"
 #include "concierto/concierto.h"
-#include "sqlite3/sqlite3.h"
-#include "logger/logger.h"
 #include "puesto/puesto.h"
+
 #include "properties/properties.h"
+#include "logger/logger.h"
+#include "sqlite3/sqlite3.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -21,9 +22,7 @@ int beneficio(sqlite3 *db, ListaEntradas l);
 
 sqlite3 *db;
 Cartelera *cart;
-
 ListaEntradas lEntradas[MAX_ENTRADAS];
-
 
 
 /* ==================================================
