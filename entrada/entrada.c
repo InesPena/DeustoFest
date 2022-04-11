@@ -6,17 +6,6 @@
 #define PRECIO_BUS 47
 
 /*
- * Imprime los datos de una entrada por pantalla
- */
-
-void imprimirEntrada(Entrada e)
-{
-
-
-
-}
-
-/*
  * Calcula el precio de la entrada en función de el tipo de entrada,
  * si se ha elegido bus y si se ha elegido camping
  */

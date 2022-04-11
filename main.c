@@ -147,7 +147,7 @@ void menuAdmin()
 				 int coste = costes(db);
 				 printf("Coste total = %i\n", coste);
 				 int benef = beneficio(db, l);
-				 printf("Beneficio total = %i\n", benef);
+				 printf("Beneficio total = %i\n");
 				 break;
 
 	         case 6:
@@ -247,9 +247,14 @@ void menuCliente()
 				break;
 
 			case 2:
-				compraEntradas(&e, &c);
-				//insertCliente(db, &c);
-				//insertEntrada(db, &e);
+				for (int i = 0; i < lEntradas.numEntradas; i++)
+				{
+					compraEntradas(&e, &c);
+					//insertCliente(db, &c);
+					//insertEntrada(db, &e);
+				} else {
+					printf("ERROR. No quedan entradas disponibles");
+				}
 				break;
 
 			case 3:
@@ -318,11 +323,7 @@ int costes(sqlite3 *db)
 
 int beneficio(sqlite3 *db, ListaEntradas l)
 {
-	int ing = ingresos(l);
-	int cost = costes(db);
-
-	int beneficio = ing - cost;
-	return beneficio;
+	return ingresos(l) - costes(db);
 }
 
 

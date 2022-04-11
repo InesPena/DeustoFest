@@ -11,7 +11,7 @@
 
 typedef struct {
 	int cod;
-	char dni[9];
+	char dni[10];
 	int camping;
 	int bus;
 	int precio;
