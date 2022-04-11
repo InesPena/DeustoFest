@@ -43,6 +43,8 @@ int main()
 	obtenerCartelera(db, pCart);
 	le = &lEntradas;
 
+	prop();
+
 
 
 	menu();
