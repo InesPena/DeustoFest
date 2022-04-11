@@ -5,7 +5,9 @@
 /*
  * Pide el código de un puesto por consola
  */
-int pedirCodigoPuesto(){
+
+int pedirCodigoPuesto()
+{
 	int cod;
 	char str[MAX_LINE];
 
@@ -20,7 +22,9 @@ int pedirCodigoPuesto(){
 /*
  *Pide los datos relativos a un puesto por consola
  */
-void pedirDatosPuesto(sqlite3 *db, Puesto *p){
+
+void pedirDatosPuesto(sqlite3 *db, Puesto *p)
+{
 	char str[MAX_LINE];
 
 	printf("Nombre de la marca: ");
@@ -28,6 +32,7 @@ void pedirDatosPuesto(sqlite3 *db, Puesto *p){
 	fgets(str, MAX_LINE, stdin);
 	sscanf(str, "%s", str);
 	p->marca = malloc((strlen(str) + 1)*sizeof(char));
+	strcpy(p->marca, str);
 
 	printf("Coste del puesto: ");
 	fflush(stdout);
@@ -38,8 +43,9 @@ void pedirDatosPuesto(sqlite3 *db, Puesto *p){
 /*
  * Inserta una nueva fila en la tabla puesto de la bd
  */
-void insertarPuesto(sqlite3 *db, Puesto *p){
 
+void insertarPuesto(sqlite3 *db, Puesto *p)ç
+{
 	sqlite3_stmt *stmt;
 	int result;
 
@@ -66,10 +72,13 @@ void insertarPuesto(sqlite3 *db, Puesto *p){
 	sqlite3_finalize(stmt);
 
 }
+
 /*
  * Elimina uns puesto de la bd
  */
-void eliminarPuesto(sqlite3 *db, int cod){
+
+void eliminarPuesto(sqlite3 *db, int cod)
+{
 
 	sqlite3_stmt *stmt;
 	int result;
@@ -95,7 +104,8 @@ void eliminarPuesto(sqlite3 *db, int cod){
 	sqlite3_finalize(stmt);
 }
 
-void imprimirPuesto(sqlite3 *db){
+void imprimirPuesto(sqlite3 *db)
+{
 	sqlite3_stmt *stmt;
 	int result;
 
@@ -135,5 +145,4 @@ int costesPuestos(sqlite3 *db)
 	log(sql, INFO);
 
 	sqlite3_finalize(stmt);
-
 }

@@ -243,7 +243,9 @@ void imprimirCartelera(sqlite3 *db,Cartelera *cart, int op)
 			}
 
 		} while (result == SQLITE_ROW);
-			printf("\n");
+		printf("\n");
+
+		log(sql, INFO);
 
 		sqlite3_finalize(stmt);
 	}

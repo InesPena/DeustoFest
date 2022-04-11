@@ -109,5 +109,14 @@ void consultarDatosCliente(sqlite3 *db, Cliente *c){
 	} while (result == SQLITE_ROW);
 	printf("\n");
 
+	char buffer[100];ç
+
+	sprintf(buffer, "SELECT CL.DNI, CL.NOMBRE, CL.MAIL, E.COD, E.CAMPING, E.BUS"
+			"FROM CLIENTE CL, ENTRADA E"
+			"WHERE CLIENTE.DNI=ENTRADA.DNI AND CLIENTE.DNI = '%s'", c->dni);
+
+	if (result != SQLITE_DONE) log(buffer, ERROR);
+	else  log(buffer, INFO);
+
 	sqlite3_finalize(stmt);
 }

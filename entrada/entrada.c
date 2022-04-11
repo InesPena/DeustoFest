@@ -64,6 +64,7 @@ void compraEntradas(Entrada *e, Cliente *c)
 	printf("\nIntroduzca sus datos personales...\n\n");
 
 	pedirDatosCliente(c);
+
 	strcpy(e->dni, c->dni);
 }
 
@@ -105,21 +106,22 @@ float porcentajeAsistencia(sqlite3 *db)
 {
 
 	sqlite3_stmt *stmt;
-		int result;
+	int result;
 
-		char sql[] = "SELECT COUNT(ENTRADA.COD) FROM ENTRADA";
+	char sql[] = "SELECT COUNT(ENTRADA.COD) FROM ENTRADA";
 
-		sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL);
+	sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL);
 
-		result = sqlite3_step(stmt);
-		int entradas = sqlite3_column_int(stmt, 0);
+	result = sqlite3_step(stmt);
+	int entradas = sqlite3_column_int(stmt, 0);
 
-		sqlite3_finalize(stmt);
+	log(sql, INFO);
 
-		float porcentaje = ((float)entradas/(float)MAX_ENTRADAS)*100;
-		/*printf("%i \n", MAX_ENTRADAS);
-		printf("%i \n", entradas);
-		printf("%f", porcentaje);*/
+	sqlite3_finalize(stmt);
 
-		return porcentaje;
+	/*printf("%i \n", MAX_ENTRADAS);
+	printf("%i \n", entradas);
+	printf("%f", porcentaje);*/
+
+	return ((float)entradas/(float)MAX_ENTRADAS)*100;;
 }

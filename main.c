@@ -20,6 +20,8 @@ int elegirOpcion();
 int costes();
 int beneficio(sqlite3 *db, ListaEntradas l);
 
+void freeAll();
+
 sqlite3 *db;
 Cartelera *cart;
 ListaEntradas lEntradas[MAX_ENTRADAS];
@@ -325,5 +327,9 @@ int beneficio(sqlite3 *db, ListaEntradas l)
 }
 
 
-
+void freeAll()
+{
+	free(bd);
+	free(cart);
+}
 
