@@ -116,7 +116,7 @@ void imprimirPuesto(sqlite3 *db)
 	do{
 		result = sqlite3_step(stmt);
 		if(result == SQLITE_ROW){
-			printf("\t%i - %s - %i", sqlite3_column_int(stmt,0), (char*)sqlite3_column_text(stmt,1), sqlite3_column_int(stmt,2));
+			printf("\t%i - %s - %i\n", sqlite3_column_int(stmt,0), (char*)sqlite3_column_text(stmt,1), sqlite3_column_int(stmt,2));
 		}
 	}while(result == SQLITE_ROW);
 
