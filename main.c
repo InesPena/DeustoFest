@@ -16,14 +16,13 @@ void menuPlan();
 void menuCliente();
 
 int elegirOpcion();
-int costes(sqlite3 *db);
+int costes();
 int beneficio(sqlite3 *db, ListaEntradas l);
 
 sqlite3 *db;
 Cartelera *cart;
 
 ListaEntradas lEntradas[MAX_ENTRADAS];
-ListaPuestos lPuestos[MAX_PUESTOS];
 
 
 
@@ -295,7 +294,10 @@ int ingresos(ListaEntradas l)
 
 int costes(sqlite3 *db)
 {
-	sqlite3_stmt *stmt;
+	return costesConciertos(db) - costes(db);
+
+
+	/*sqlite3_stmt *stmt;
 	int result;
 	int costeEntradas = 0;
 	int costePuestos = 0;
@@ -318,7 +320,7 @@ int costes(sqlite3 *db)
 
 	int costeTotal = costeEntradas+costePuestos;
 
-	return costeTotal;
+	return costeTotal;*/
 }
 
 int beneficio(sqlite3 *db, ListaEntradas l)

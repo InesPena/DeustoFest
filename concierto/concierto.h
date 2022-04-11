@@ -25,6 +25,8 @@ void insertarConcierto(sqlite3 *db, Concierto *c);
 
 void eliminarConcierto(sqlite3 *db, int cod);
 
+int costesConciertos(sqlite *db);
+
 typedef struct {
 	int numConciertos;
 	Concierto *conciertos;

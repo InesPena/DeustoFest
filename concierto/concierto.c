@@ -133,6 +133,26 @@ void eliminarConcierto(sqlite3 *db, int cod)
 	sqlite3_finalize(stmt);
 }
 
+int costesConciertos(sqlite *db)
+{
+	sqlite3_stmt *stmt;
+	int result;
+	int coste;
+
+	char sql[] = "SELECT SUM(COSTE) FROM CONCIERTO";
+	sqlite3_prepare_v2(db, sql, strlen(sql)+1, &stmt, NULL);
+
+	result = sqlite3_step(stmt);
+
+	if(result == SQLITE_ROW){
+		costeEntradas = sqlite3_column_int(stmt, 0);
+	}
+
+	log(sql, INFO);
+
+	sqlite3_finalize(stmt);
+}
+
 /* ==================================================
  * 					CARTELERA
  * ==================================================

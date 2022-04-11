@@ -121,3 +121,24 @@ void imprimirPuesto(sqlite3 *db){
 
 	sqlite3_finalize(stmt);
 }
+
+int costesPuestos(sqlite3 *db)
+{
+	sqlite3_stmt *stmt;
+	int result;
+	int coste;
+
+	char sql[] = "SELECT SUM(COSTE) FROM PUESTO";
+	sqlite3_prepare_v2(db, sql, strlen(sql)+1, &stmt, NULL);
+
+	result = sqlite3_step(stmt);
+
+	if(result == SQLITE_ROW){
+		costePuestos = sqlite3_column_int(stmt, 0);
+	}
+
+	log(sql, INFO);
+
+	sqlite3_finalize(stmt);
+
+}
