@@ -342,24 +342,32 @@ int beneficio(sqlite3 *db, ListaEntradas l)
 
 void properties()
 {
-	char **clave = malloc(sizeof(char*) * prop.num);
-	clave[0] = "Ultima Conexión";
-	clave[1] = "Accedido desde";
-	prop.clave = clave;
+	prop.num = 2;
+	FILE *file;
+	if ((file = fopen("properties/file.properties", "r"))) {
+		fclose(file);
+		cargarProperties(&prop);
+	} else {
+		char **clave = malloc(sizeof(char*) * prop.num);
+		clave[0] = "Ultima Conexión";
+		clave[1] = "Accedido desde";
+		prop.clave = clave;
 
 
-	char **valor = malloc(sizeof(char*) * prop.num);
-	valor[0] = "2022-03-12 18:30";
-	valor[1] = "Administrador";
-	prop.valor = valor;
+		char **valor = malloc(sizeof(char*) * prop.num);
+		valor[0] = "2022-03-12 18:30";
+		valor[1] = "Administrador";
+		prop.valor = valor;
 
-	crearProperties(&prop);
+		crearProperties(&prop);
+	}
+
 
 	/*Properties prop;
 		FILE *file;
-		if ((file = fopen("config.properties", "r"))) {
+		if ((file = fopen("properties/file.properties", "r"))) {
 			fclose(file);
-			cargarProperties(&prop, "config.properties");
+			cargarProperties(&prop);
 		} else {
 			int num = 2;
 			char **clave = malloc(sizeof(char*) * num);

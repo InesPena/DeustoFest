@@ -1,7 +1,6 @@
-
 #include "properties.h"
 #include "../sqlite3/sqlite3.h"
-
+// #include <time.h>
 
 void crearProperties(Properties *properties)
 {
@@ -23,29 +22,50 @@ void cargarProperties(Properties *properties)
 
 	char buffer[2000];
 	char *linea;
+	char listaClave[100];
 
 	while (fgets(buffer, 2000, f)) {
 		linea = strtok(buffer, ":");
-		printf("%s", linea);
-		for(int i = 0; i < properties->num-2 ; i++)
+		for(int i = 0; i < properties->num ; i++)
 			{
-				printf("%i \n",i);
 				if(i % 2 == 0){
 					//meter en array clave
-					printf( "Clave: %s\n", linea );
+					printf( "%s:\n", linea );
+					listaClave[i] = linea;
 				}
 				else{
 					//meter en array valor.
-					printf( "Valor: %s\n", linea );
+					printf( "%s\n", linea );
 				}
 				linea = strtok(NULL, ":");
 			}
 	}
-
+	properties->clave = listaClave;
 	fclose(f);
 
 }
 
 
+void actualizarProperties(Properties *properties)
+{
+
+	/*
+	FILE *f = fopen("properties/file.properties", "w+");
+
+	for (int i = 0; i < properties->num; i++) {
+
+		fprintf(f, "%s: ", properties->clave[i]);
+		if(i == 0){
+			// fprintf(f, "%s\n", (int)time(NULL));
+			fprintf(f, "%s\n", properties->valor[i]);
+		}else{
+			fprintf(f, "%s\n", properties->valor[i]);
+		}
+
+	}
+
+	fclose(f);*/
+
+}
 
 
