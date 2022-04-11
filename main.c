@@ -138,15 +138,12 @@ void menuAdmin()
 	        	 break;
 
 	         case 5:
-	        	 printf("  ESTADÍSTICAS\n");
-				 ;
-				 float porcentaje = porcentajeAsistencia(db);
-				 printf("Asistencia = %.2f%% \n", porcentaje);
-				 printf("Ingreso total = \n");
-				 int coste = costes(db);
-				 printf("Coste total = %i\n", coste);
-				 int benef = beneficio(db, l);
-				 printf("Beneficio total = %i\n");
+	        	 printf("\tESTADÍSTICAS\n");
+	        	 printf("--------------------------------\n\n");
+				 printf("Asistencia = \t%.2f%% \n", porcentajeAsistencia(db));
+				 printf("Ingreso total = \t%i\n");
+				 printf("Coste total = \t%i\n", costes(db));
+				 printf("Beneficio total = \t%i\n", beneficio(bd, l));
 				 break;
 
 	         case 6:
