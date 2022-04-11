@@ -126,7 +126,8 @@ float porcentajeAsistencia(sqlite3 *db)
 	return ((float)entradas/(float)MAX_ENTRADAS)*100;;
 }
 
-void obtenerEntradas(sqlite3 *db, ListaEntradas *le){
+void obtenerEntradas(sqlite3 *db, ListaEntradas *le)
+{
 	sqlite3_stmt *stmt;
 	int result,pos = 0;
 
@@ -138,6 +139,8 @@ void obtenerEntradas(sqlite3 *db, ListaEntradas *le){
 	char sql2[] = "SELECT * FROM ENTRADA";
 	sqlite3_prepare_v2(db,sql2,strlen(sql2),&stmt,NULL);
 
+	int pos = 0;
+
 	do{
 		result = sqlite3_step(stmt);
 		if(result == SQLITE_ROW){
@@ -148,6 +151,7 @@ void obtenerEntradas(sqlite3 *db, ListaEntradas *le){
 			le->entradas[pos].precio = sqlite3_column_int(stmt,4);
 		}
 		pos++;
+
 	}while(result == SQLITE_ROW);
 
 	log(sql2, INFO);

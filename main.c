@@ -22,10 +22,10 @@ int beneficio(sqlite3 *db, ListaEntradas l);
 void properties();
 
 sqlite3 *db;
+Properties prop;
 
 Cartelera *pCart;
 Cartelera cart;
-ListaEntradas *le;
 
 ListaEntradas lEntradas[MAX_ENTRADAS];
 
@@ -41,11 +41,8 @@ int main()
 
 	pCart = &cart;
 	obtenerCartelera(db, pCart);
-	le = &lEntradas;
 
-	prop();
-
-
+	properties();
 
 	menu();
 
@@ -102,8 +99,6 @@ void menuAdmin()
 	Cliente cl;
 	pCl = &cl;
 
-	ListaEntradas l;
-
 	do {
 		printf("\n\n\tADMINISTRADOR\n");
 		printf("--------------------------------\n\n");
@@ -137,10 +132,10 @@ void menuAdmin()
 	         case 5:
 	        	 printf("\tESTADÍSTICAS\n");
 	        	 printf("--------------------------------\n\n");
-				 printf("Asistencia = \t%.2f%% \n", porcentajeAsistencia(db));
-				 printf("Ingreso total = \t%i\n", ingresos(le));
-				 printf("Coste total = \t%i\n", costes(db));
-				 printf("Beneficio total = \t%i\n", beneficio(db, l));
+				 printf("Asistencia = \t\t%.2f%% \n", porcentajeAsistencia(db));
+				 printf("Ingreso total = \t%i\n", ingresos(lEntradas));
+				 printf("Coste total = \t\t%i\n", costes(db));
+				 printf("Beneficio total = \t%i\n", beneficio(db, *lEntradas));
 				 break;
 
 	         case 6:
@@ -298,20 +293,20 @@ int elegirOpcion()
 	return op;
 }
 
-int ingresos(ListaEntradas l)
+int ingresos()
 {
 	int ingresos=0;
 
-	for(int i=0; i<le.numEntradas;i++){
-		ingresos += le.entradas[i].precio;
-	}
+	//for(int i=0; i<pEntradas.numEntradas;i++){
+	//	ingresos += pEntradas.entradas[i].precio;
+	//}
 
 	return ingresos;
 }
 
 int costes(sqlite3 *db)
 {
-	return costesConciertos(db) - costes(db);
+	return costesConciertos(db) - costesPuestos(db);
 
 
 	/*sqlite3_stmt *stmt;
