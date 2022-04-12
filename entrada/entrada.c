@@ -41,7 +41,7 @@ void compraEntradas(Entrada *e, Cliente *c)
 
 	if (op == 1) precioEnt = 75;
 	if (op == 2) precioEnt = 80;
-	if (op == 3) precioEnt = 90;
+	if (op == 3) precioEnt = 142;
 
 	char op2;
 	char op3;
@@ -126,8 +126,7 @@ float porcentajeAsistencia(sqlite3 *db)
 	return ((float)entradas/(float)MAX_ENTRADAS)*100;;
 }
 
-void obtenerEntradas(sqlite3 *db, ListaEntradas *le)
-{
+void obtenerEntradas(sqlite3 *db, ListaEntradas *le){
 	sqlite3_stmt *stmt;
 	int result,pos = 0;
 
@@ -149,7 +148,6 @@ void obtenerEntradas(sqlite3 *db, ListaEntradas *le)
 			le->entradas[pos].precio = sqlite3_column_int(stmt,4);
 		}
 		pos++;
-
 	}while(result == SQLITE_ROW);
 
 	log(sql2, INFO);
