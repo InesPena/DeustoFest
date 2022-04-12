@@ -31,7 +31,7 @@ FILE *fileProp;
 Cartelera *pCart;
 Cartelera cart;
 
-ListaEntradas lEntradas[MAX_ENTRADAS];
+ListaEntradas lEntradas;
 
 typedef enum
 {
