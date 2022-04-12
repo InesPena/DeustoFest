@@ -17,4 +17,6 @@ typedef enum
 
 void log(char msg[MAX_LOG], TIPO tipo);
 
+char* now();
+
 #endif /* LOGGER_LOGGER_H_ */

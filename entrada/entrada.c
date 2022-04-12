@@ -1,4 +1,5 @@
 #include "entrada.h"
+#include "../sqlite3/sqlite3.h"
 
 #define PRECIO_CAMP 35
 #define PRECIO_BUS 47

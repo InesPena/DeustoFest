@@ -1,4 +1,5 @@
 #include "concierto.h"
+#include "../sqlite3/sqlite3.h"
 
 void selectDias(sqlite3 *db);
 void selectEscenarios(sqlite3 *db);
@@ -149,6 +150,8 @@ int costesConciertos(sqlite3 *db)
 	log(sql, INFO);
 
 	sqlite3_finalize(stmt);
+
+	return coste;
 }
 
 /* ==================================================

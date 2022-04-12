@@ -5,11 +5,11 @@ void log(char msg[MAX_LOG], TIPO tipo)
 	FILE *file;
 	file = fopen("logger/deustoFest.log", "a+");
 
-	time_t t;
+	/*time_t t;
 	char *ch ;
 	time(&t);
-	ch = ctime(&t) ;
-	fprintf(file, "\n%s", ch);
+	ch = ctime(&t) ;*/
+	fprintf(file, "\n%s", now());
 
 	if (tipo == INFO) fprintf(file, "INFO: ");
 	if (tipo == ERROR) fprintf(file, "ERROR: ");
@@ -18,3 +18,20 @@ void log(char msg[MAX_LOG], TIPO tipo)
 
 	fclose(file);
 }
+
+/*
+ * Devuelve un string con la fecha y hora actual
+ */
+
+char* now()
+{
+	time_t t;
+	char *ch ;
+	time(&t);
+	ch = ctime(&t);
+
+	return ch;
+}
+
+
+

@@ -145,4 +145,6 @@ int costesPuestos(sqlite3 *db)
 	log(sql, INFO);
 
 	sqlite3_finalize(stmt);
+
+	return coste;
 }

@@ -9,7 +9,7 @@ void crearProperties(Properties *properties)
 	for (int i = 0; i < properties->num; i++) {
 
 		fprintf(f, "%s: ", properties->clave[i]);
-		fprintf(f, "%s\n", properties->valor[i]);
+		fprintf(f, "%s", properties->valor[i]);
 	}
 
 	fclose(f);
@@ -24,11 +24,13 @@ void cargarProperties(Properties *properties)
 	char *linea;
 	char listaClave[100];
 
-	while (fgets(buffer, 2000, f)) {
+	while (fgets(buffer, 2000, f))
+	{
 		linea = strtok(buffer, ":");
+
 		for(int i = 0; i < properties->num ; i++)
-			{
-				if(i % 2 == 0){
+		{
+			if(i % 2 == 0){
 					//meter en array clave
 					printf( "%s:\n", linea );
 					listaClave[i] = linea;

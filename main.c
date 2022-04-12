@@ -22,12 +22,24 @@ int beneficio(sqlite3 *db, ListaEntradas l);
 void properties();
 
 sqlite3 *db;
+
 Properties prop;
+FILE *fileProp;
+
 
 Cartelera *pCart;
 Cartelera cart;
 
 ListaEntradas lEntradas[MAX_ENTRADAS];
+
+typedef enum
+{
+	ADMIN,
+	CLIENT,
+
+} USUARIO;
+
+USUARIO user;
 
 
 /* ==================================================
@@ -41,8 +53,6 @@ int main()
 
 	pCart = &cart;
 	obtenerCartelera(db, pCart);
-
-	properties();
 
 	menu();
 
@@ -67,13 +77,16 @@ void menu()
 
 			case 1:
 				menuCliente();
+				user = CLIENT;
 				break;
 
 			case 2:
 				menuAdmin();
+				user = ADMIN;
 				break;
 
 			case 3:
+				properties();
 				sqlite3_close(db);
 				free(pCart);
 				free(db);
@@ -274,7 +287,6 @@ void menuCliente()
 }
 
 
-
 /* ==================================================
  * 						OTRAS FUNCIONES
  * ==================================================
@@ -342,7 +354,33 @@ int beneficio(sqlite3 *db, ListaEntradas l)
 
 void properties()
 {
+
 	prop.num = 2;
+
+	if ((fileProp = fopen("properties/file.properties", "r")))
+	{
+		fclose(fileProp);
+		cargarProperties(&prop);
+	}
+	else
+	{
+		char **clave = malloc(sizeof(char*) * prop.num);
+		clave[0] = "Ultima Conexión";
+		clave[1] = "Accedido desde";
+		prop.clave = clave;
+
+		char **valor = malloc(sizeof(char*) * prop.num);
+		strcpy(valor[0], now());
+		if (user == CLIENT) valor[1] = "Cliente";
+		if (user == ADMIN) valor[1] = "Administrador";
+		prop.valor = valor;
+
+		crearProperties(&prop);
+	}
+
+
+
+	/*prop.num = 2;
 	FILE *file;
 	if ((file = fopen("properties/file.properties", "r"))) {
 		fclose(file);
@@ -360,7 +398,7 @@ void properties()
 		prop.valor = valor;
 
 		crearProperties(&prop);
-	}
+	}*/
 
 
 	/*Properties prop;
