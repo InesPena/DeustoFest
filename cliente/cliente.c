@@ -51,7 +51,7 @@ void insertCliente(sqlite3 *db, Cliente *c)
 	sqlite3_stmt *stmt;
 	int result;
 
-	char sql[] = "INSERT INTO CLIENTE (dni, nombre, mail) VALUES (?, ?, ?)";
+	char sql[] = "INSERT INTO CLIENTE (DNI, NOMBRE, MAIL) VALUES (?, ?, ?)";
 
 	sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL);
 
@@ -66,7 +66,7 @@ void insertCliente(sqlite3 *db, Cliente *c)
 
 	if (result != SQLITE_DONE) {
 		log(buffer, ERROR);
-		printf("Erro en la compra de la entrada");
+		printf("Error en la compra de la entrada");
 	} else {
 		log(buffer, INFO);
 	}
@@ -80,7 +80,7 @@ void consultarDatosCliente(sqlite3 *db, Cliente *c){
 	char dni;
 	char str [MAX_LINE];
 
-	printf ("Introduce el dni del cliente:\n");
+	printf ("DNI:\n");
 	fflush(stdout);
 	fgets(str, MAX_LINE, stdin);
 	sscanf(str, "%s", &dni);

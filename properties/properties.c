@@ -1,6 +1,5 @@
 #include "properties.h"
 #include "../sqlite3/sqlite3.h"
-// #include <time.h>
 
 void crearProperties(Properties *properties)
 {
@@ -14,7 +13,6 @@ void crearProperties(Properties *properties)
 
 	fclose(f);
 }
-
 
 void cargarProperties(Properties *properties)
 {

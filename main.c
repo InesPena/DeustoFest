@@ -9,6 +9,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 void menu();
 void menuAdmin();
@@ -18,8 +19,9 @@ void menuCliente();
 
 int elegirOpcion();
 int costes();
-int beneficio(sqlite3 *db, ListaEntradas l);
 void properties();
+
+int beneficio(sqlite3 *db, ListaEntradas l);
 int ingresos(ListaEntradas pEntradas);
 
 sqlite3 *db;
@@ -50,6 +52,7 @@ USUARIO user;
 int main()
 {
 	sqlite3_open("sqlite3/deustoFest.sqlite", &db);
+
 	obtenerEntradas(db, &lEntradas);
 	pCart = &cart;
 	obtenerCartelera(db, pCart);
@@ -139,11 +142,12 @@ void menuAdmin()
 	             break;
 
 	         case 4:
+	        	 printf("\n\nInserte el dni del cliente...\n\n");
 	        	 consultarDatosCliente(db, pCl);
 	        	 break;
 
 	         case 5:
-	        	 printf("\tESTADÍSTICAS\n");
+	        	 printf("\n\tESTADÍSTICAS\n");
 	        	 printf("--------------------------------\n\n");
 	        	 printf("Asistencia = \t\t%.2f%% \n", porcentajeAsistencia(db));
 	        	 printf("Ingreso total = \t%i\n", ingresos(lEntradas));
@@ -212,7 +216,7 @@ void menuPlan()
 		    	break;
 
 		    case 4:
-		    	printf("\nInserte el código del puesto...\n\n");
+		    	printf("\nInserte el código del puesto...\n");
 		    	imprimirPuesto(db);
 		    	eliminarPuesto(db, pedirCodigoPuesto());
 		    	break;
@@ -265,9 +269,14 @@ void menuCliente()
 				break;
 
 			case 2:
-				compraEntradas(pEnt, pCl);
-				insertCliente(db,pCl);
-				insertEntrada(db, pEnt);
+				if(lEntradas.numEntradas < MAX_ENTRADAS) {
+					compraEntradas(pEnt, pCl);
+					insertCliente(db,pCl);
+					insertEntrada(db, pEnt);
+
+				} else {
+					printf("\nLo sentimos. No quedan entradas disponibles");
+				}
 
 				break;
 
@@ -328,7 +337,6 @@ int beneficio(sqlite3 *db, ListaEntradas l)
 
 void properties()
 {
-
 	prop.num = 2;
 
 	if ((fileProp = fopen("properties/file.properties", "r")))
@@ -352,8 +360,6 @@ void properties()
 		crearProperties(&prop);
 	}
 
-
-
 	/*prop.num = 2;
 	FILE *file;
 	if ((file = fopen("properties/file.properties", "r"))) {
@@ -373,24 +379,4 @@ void properties()
 
 		crearProperties(&prop);
 	}*/
-
-
-	/*Properties prop;
-		FILE *file;
-		if ((file = fopen("properties/file.properties", "r"))) {
-			fclose(file);
-			cargarProperties(&prop);
-		} else {
-			int num = 2;
-			char **clave = malloc(sizeof(char*) * num);
-			clave[0] = "Ultima Conexión";
-			clave[1] = "Opción seleccionada";
-
-
-			char **valor = malloc(sizeof(char*) * num);
-			valor[0] = "2022-03-12 18:30";
-			valor[1] = "2";
-
-			crearProperties(&prop, "config.properties");
-		}*/
 }

@@ -60,7 +60,7 @@ void compraEntradas(Entrada *e, Cliente *c)
 
 	if (op3 == 's') e->bus = 1;
 
-	e->precio = calularPrecio(&e, precioEnt);
+	e->precio = calularPrecio(e, precioEnt);
 
 	printf("\nIntroduzca sus datos personales...\n\n");
 
@@ -78,7 +78,7 @@ void insertEntrada(sqlite3 *db, Entrada *e)
 	sqlite3_stmt *stmt;
 	int result;
 
-	char sql[] = "INSERT INTO CLIENTE (dni, camping, bus, precio) VALUES (?, ?, ?, ?)";
+	char sql[] = "INSERT INTO ENTRADA(DNI, CAMPING, BUS, PRECIO) VALUES (?, ?, ?, ?)";
 
 	sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL);
 
@@ -90,14 +90,14 @@ void insertEntrada(sqlite3 *db, Entrada *e)
 	result = sqlite3_step(stmt);
 
 	char buffer[100];
-	sprintf(buffer, "INSERT INTO CLIENTE (DNI, CAMPING,BUS, PRECIO) VALUES ('%s', %i, %i, %i)", e->dni, e->camping, e->bus, e->precio);
+	sprintf(buffer, "INSERT INTO ENTRADA(DNI, CAMPING, BUS, PRECIO) VALUES ('%s', %i, %i, %i)", e->dni, e->camping, e->bus, e->precio);
 
 	if (result != SQLITE_DONE){
 		log(buffer, ERROR);
-		printf("Error al realizar la compra\n");
+		printf("\nError al realizar la compra\n");
 	} else {
 		log(buffer, INFO);
-		printf("Compra completada\n");
+		printf("\nCompra completada\n");
 	}
 
 	sqlite3_finalize(stmt);
@@ -105,7 +105,6 @@ void insertEntrada(sqlite3 *db, Entrada *e)
 
 float porcentajeAsistencia(sqlite3 *db)
 {
-
 	sqlite3_stmt *stmt;
 	int result;
 
@@ -120,14 +119,11 @@ float porcentajeAsistencia(sqlite3 *db)
 
 	sqlite3_finalize(stmt);
 
-	/*printf("%i \n", MAX_ENTRADAS);
-	printf("%i \n", entradas);
-	printf("%f", porcentaje);*/
-
-	return ((float)entradas/(float)MAX_ENTRADAS)*100;;
+	return ((float)entradas/(float)MAX_ENTRADAS)*100;
 }
 
-void obtenerEntradas(sqlite3 *db, ListaEntradas *le){
+void obtenerEntradas(sqlite3 *db, ListaEntradas *le)
+{
 	sqlite3_stmt *stmt;
 	int result,pos = 0;
 
@@ -142,6 +138,7 @@ void obtenerEntradas(sqlite3 *db, ListaEntradas *le){
 
 	do{
 		result = sqlite3_step(stmt);
+
 		if(result == SQLITE_ROW){
 			le->entradas[pos].cod = sqlite3_column_int(stmt, 0);
 			strcpy(le->entradas[pos].dni, (char*)sqlite3_column_text(stmt,1));

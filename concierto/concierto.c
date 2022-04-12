@@ -143,9 +143,7 @@ int costesConciertos(sqlite3 *db)
 
 	result = sqlite3_step(stmt);
 
-	if(result == SQLITE_ROW){
-		coste = sqlite3_column_int(stmt, 0);
-	}
+	if(result == SQLITE_ROW) coste = sqlite3_column_int(stmt, 0);
 
 	log(sql, INFO);
 
@@ -193,7 +191,6 @@ void obtenerCartelera(sqlite3 *db, Cartelera *cart)
 
 	} while (result == SQLITE_ROW);
 
-
 	log(sql2, INFO);
 
 	sqlite3_finalize(stmt);
@@ -212,11 +209,11 @@ void imprimirCartelera(sqlite3 *db,Cartelera *cart, int op)
 		printf("\n\tCARTELERA\n");
 		printf("--------------------------------\n\n");
 
-		printf("  22 JULIO\n");
+		printf("  22 JULIO\n\n");
 		for (int i = 0; i < cart->numConciertos; i++)
 			if (cart->conciertos[i].dia == 1) printf("%s\n",cart->conciertos[i].artista );
 
-		printf("\n  23 JULIO\n");
+		printf("\n  23 JULIO\n\n");
 		for (int i = 0; i < cart->numConciertos; i++)
 			if (cart->conciertos[i].dia == 2) printf("%s\n",cart->conciertos[i].artista );
 	}

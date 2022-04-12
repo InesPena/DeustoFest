@@ -21,5 +21,4 @@ void cargarProperties(Properties* properties);
 
 void actualizarProperties(Properties* properties);
 
-
 #endif /* PROPERTIES_PROPERTIES_H_ */

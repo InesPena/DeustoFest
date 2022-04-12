@@ -5,10 +5,6 @@ void log(char msg[MAX_LOG], TIPO tipo)
 	FILE *file;
 	file = fopen("logger/deustoFest.log", "a+");
 
-	/*time_t t;
-	char *ch ;
-	time(&t);
-	ch = ctime(&t) ;*/
 	fprintf(file, "\n%s", now());
 
 	if (tipo == INFO) fprintf(file, "INFO: ");

@@ -63,14 +63,13 @@ void insertarPuesto(sqlite3 *db, Puesto *p)
 
 	if(result != SQLITE_DONE){
 		log(buffer, ERROR);
-		printf("Error añadiendo puesto\n");
+		printf("\nError añadiendo puesto\n");
 	}else{
 		log(buffer, INFO);
-		printf("Puesto añadido correctamente\n");
+		printf("\nPuesto añadido correctamente\n");
 	}
 
 	sqlite3_finalize(stmt);
-
 }
 
 /*
@@ -95,10 +94,10 @@ void eliminarPuesto(sqlite3 *db, int cod)
 
 	if(result != SQLITE_DONE){
 		log(buffer, ERROR);
-		printf("Error eliminando puesto\n");
+		printf("\nError eliminando puesto\n");
 	}else{
 		log(buffer, INFO);
-		printf("Puesto eliminado correctamente\n");
+		printf("\nPuesto eliminado correctamente\n");
 	}
 
 	sqlite3_finalize(stmt);
