@@ -135,6 +135,7 @@ void obtenerEntradas(sqlite3 *db, ListaEntradas *le){
 	sqlite3_prepare_v2(db,sql,strlen(sql),&stmt,NULL);
 	result = sqlite3_step(stmt);
 	le->numEntradas = sqlite3_column_int(stmt,0);
+	sqlite3_finalize(stmt);
 
 	char sql2[] = "SELECT * FROM ENTRADA";
 	sqlite3_prepare_v2(db,sql2,strlen(sql2),&stmt,NULL);
@@ -147,8 +148,9 @@ void obtenerEntradas(sqlite3 *db, ListaEntradas *le){
 			le->entradas[pos].camping = sqlite3_column_int(stmt,2);
 			le->entradas[pos].bus = sqlite3_column_int(stmt,3);
 			le->entradas[pos].precio = sqlite3_column_int(stmt,4);
+			pos++;
 		}
-		pos++;
+
 	}while(result == SQLITE_ROW);
 
 	log(sql2, INFO);
