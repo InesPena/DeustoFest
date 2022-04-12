@@ -253,8 +253,8 @@ void menuCliente()
 
 			case 2:
 				compraEntradas(pEnt, pCl);
-				//insertCliente(db, &c);
-				//insertEntrada(db, &e);
+				insertCliente(db,pCl);
+				insertEntrada(db, pEnt);
 
 				break;
 

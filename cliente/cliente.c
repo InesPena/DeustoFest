@@ -64,8 +64,13 @@ void insertCliente(sqlite3 *db, Cliente *c)
 	char buffer[100];
 	sprintf(buffer, "INSERT INTO CLIENTE (DNI, NOMBRE, MAIL) VALUES ('%s', '%s', '%s')", c->nombre, c->nombre, c->mail);
 
-	if (result != SQLITE_DONE) log(buffer, ERROR);
-	else  log(buffer, INFO);
+	if (result != SQLITE_DONE) {
+		log(buffer, ERROR);
+		printf("Erro en la compra de la entrada");
+	} else {
+		log(buffer, INFO);
+	}
+
 
 	sqlite3_finalize(stmt);
 }
