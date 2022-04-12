@@ -27,7 +27,6 @@ sqlite3 *db;
 Properties prop;
 FILE *fileProp;
 
-
 Cartelera *pCart;
 Cartelera cart;
 
@@ -54,8 +53,6 @@ int main()
 	obtenerEntradas(db, &lEntradas);
 	pCart = &cart;
 	obtenerCartelera(db, pCart);
-
-	properties();
 
 	menu();
 
@@ -322,32 +319,6 @@ int ingresos(ListaEntradas pEntradas)
 int costes(sqlite3 *db)
 {
 	return costesConciertos(db) - costesPuestos(db);
-
-
-	/*sqlite3_stmt *stmt;
-	int result;
-	int costeEntradas = 0;
-	int costePuestos = 0;
-
-	char sql[] = "SELECT SUM(COSTE) FROM CONCIERTO";
-	sqlite3_prepare_v2(db, sql, strlen(sql)+1, &stmt, NULL);
-	result = sqlite3_step(stmt);
-	if(result == SQLITE_ROW){
-		costeEntradas = sqlite3_column_int(stmt, 0);
-		sqlite3_finalize(stmt);
-	}
-
-	char sql2[] = "SELECT SUM(COSTE) FROM PUESTO";
-	sqlite3_prepare_v2(db, sql2, strlen(sql2)+1, &stmt, NULL);
-	result = sqlite3_step(stmt);
-	if(result == SQLITE_ROW){
-		costePuestos = sqlite3_column_int(stmt, 0);
-		sqlite3_finalize(stmt);
-	}
-
-	int costeTotal = costeEntradas+costePuestos;
-
-	return costeTotal;*/
 }
 
 int beneficio(sqlite3 *db, ListaEntradas l)
