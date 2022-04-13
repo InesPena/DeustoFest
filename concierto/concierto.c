@@ -243,10 +243,10 @@ void imprimirCartelera(sqlite3 *db,Cartelera *cart, int op)
 			result = sqlite3_step(stmt);
 			if (result == SQLITE_ROW)
 			{
-				printf("Cod.%i\t", sqlite3_column_int(stmt, 0));
-				printf("%s\t\t", (char*)sqlite3_column_text(stmt, 1));
-				printf("%s\t\t", (char*)sqlite3_column_text(stmt, 2));
-				printf("%s\n", (char*)sqlite3_column_text(stmt, 3));
+				printf("Cod.%-5i", sqlite3_column_int(stmt, 0));
+				printf("%-20s", (char*)sqlite3_column_text(stmt, 1));
+				printf("%s-24", (char*)sqlite3_column_text(stmt, 2));
+				printf("%-15s\n", (char*)sqlite3_column_text(stmt, 3));
 			}
 
 		} while (result == SQLITE_ROW);
