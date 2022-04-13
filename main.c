@@ -53,9 +53,7 @@ int main()
 {
 	sqlite3_open("sqlite3/deustoFest.sqlite", &db);
 
-	obtenerEntradas(db, &lEntradas);
 	pCart = &cart;
-	obtenerCartelera(db, pCart);
 
 	menu();
 
@@ -116,6 +114,9 @@ void menuAdmin()
 	pCl = &cl;
 
 	do {
+		obtenerEntradas(db, &lEntradas);
+		obtenerCartelera(db, pCart);
+
 		printf("\n\n\tADMINISTRADOR\n");
 		printf("--------------------------------\n\n");
 		printf("1. Planificar Festival\n");
@@ -186,6 +187,9 @@ void menuPlan()
 	pPu = &pu;
 
 	do {
+		obtenerEntradas(db, &lEntradas);
+		obtenerCartelera(db, pCart);
+
 		printf("\n\tPLANIFICAR FESTIVAL\n");
 		printf("--------------------------------\n\n");
 		printf("1. Organizar nuevo concierto\n");
@@ -206,7 +210,7 @@ void menuPlan()
 
 		    case 2:
 		    	printf("\nInserte el código del concierto...\n\n");
-		    	eliminarConcierto(db, pedirCodigoConcierto());
+		    	eliminarConcierto(db, pedirCodigoConcierto(cart));
 		    	break;
 
 		    case 3:
@@ -254,6 +258,8 @@ void menuCliente()
 	pCl = &cl;
 
 	do {
+		obtenerCartelera(db, pCart);
+
 		printf("\n\n\tCLIENTE\n");
 		printf("--------------------------------\n\n");
 		printf("1. Consultar Cartelera\n");

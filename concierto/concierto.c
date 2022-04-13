@@ -15,8 +15,15 @@ void selectEscenarios(sqlite3 *db);
  * Pide el código de un concierto por consola
  */
 
-int pedirCodigoConcierto()
+int pedirCodigoConcierto(Cartelera cart)
 {
+	printf("\tCARTELETA\n");
+	for (int i = 0; i < cart.numConciertos; i++)
+	{
+		printf("\t%i - %s\n", cart.conciertos[i].cod, cart.conciertos[i].artista);
+	}
+	printf("\n");
+
 	int cod;
 	char str[MAX_LINE];
 
@@ -82,7 +89,7 @@ void insertarConcierto(sqlite3 *db, Concierto *c)
 	sqlite3_bind_text(stmt, 1, c->artista, strlen(c->artista), SQLITE_STATIC);
 	sqlite3_bind_int(stmt, 2, c->escenario);
 	sqlite3_bind_int(stmt, 3, c->dia);
-	sqlite3_bind_int(stmt, 3, c->coste);
+	sqlite3_bind_int(stmt, 4, c->coste);
 
 	result = sqlite3_step(stmt);
 
