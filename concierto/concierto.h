@@ -18,8 +18,6 @@ typedef struct {
 } Concierto ;
 
 
-int pedirCodigoConcierto(Cartelera cat);
-
 void pedirDatosConcierto(sqlite3 *db, Concierto *c);
 
 void insertarConcierto(sqlite3 *db, Concierto *c);
@@ -33,6 +31,8 @@ typedef struct {
 	Concierto *conciertos;
 
 }Cartelera;
+
+int pedirCodigoConcierto(Cartelera cat);
 
 void obtenerCartelera(sqlite3 *db, Cartelera *cart);
 
