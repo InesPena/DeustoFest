@@ -112,24 +112,20 @@ void consultarDatosCliente(sqlite3 *db, Cliente *c){
 
 		if (result == SQLITE_ROW)
 		{
-			printf("ENTRA");
 			printf("\n\nDNI: %-15s", (char*)sqlite3_column_text(stmt, 0));
 			printf("\nNOMBRE: %-20s", (char*)sqlite3_column_text(stmt, 1));
 			printf("\nMAIL: %-35s\n", (char*)sqlite3_column_text(stmt, 2));
-			printf("COD_E: \t-3i", sqlite3_column_int(stmt, 3));
+			printf("COD_E: %-3i", sqlite3_column_int(stmt, 3));
 
-			printf("\nCAMPING: \t");
+			printf("\nCAMPING: ");
 			if (sqlite3_column_int(stmt, 4) == 1) printf("SI");
 			else printf("NO");
 
-			printf("\nBUS: \t");
+			printf("\nBUS: ");
 			if (sqlite3_column_int(stmt, 5) == 1) printf("SI");
 			else printf("NO");
 
-		} else {
-			printf("Error. Cliente no identificado");
 		}
-
 	} while (result == SQLITE_ROW);
 	printf("\n");
 
