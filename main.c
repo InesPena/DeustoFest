@@ -138,6 +138,7 @@ void menuAdmin()
 	        	 imprimirCartelera(db, pCart, 2);
 	        	 break;
 
+
 	         case 3:
 	        	 imprimirPuesto(db);
 	             break;
@@ -187,8 +188,6 @@ void menuPlan()
 	pPu = &pu;
 
 	do {
-		obtenerEntradas(db, &lEntradas);
-		obtenerCartelera(db, pCart);
 
 		printf("\n\tPLANIFICAR FESTIVAL\n");
 		printf("--------------------------------\n\n");
@@ -209,6 +208,7 @@ void menuPlan()
 				break;
 
 		    case 2:
+		    	obtenerCartelera(db, &cart);
 		    	printf("\nInserte el código del concierto...\n\n");
 		    	eliminarConcierto(db, pedirCodigoConcierto(cart));
 		    	break;
@@ -345,44 +345,19 @@ void properties()
 {
 	prop.num = 2;
 
-	if ((fileProp = fopen("properties/file.properties", "r")))
-	{
-		fclose(fileProp);
-		cargarProperties(&prop);
-	}
-	else
-	{
-		char **clave = malloc(sizeof(char*) * prop.num);
-		clave[0] = "Ultima Conexión";
-		clave[1] = "Accedido desde";
-		prop.clave = clave;
+	char **clave = malloc(sizeof(char*) * prop.num);
+	clave[0] = "Ultima Conexión";
+	clave[1] = "Accedido desde";
+	prop.clave = clave;
 
-		char **valor = malloc(sizeof(char*) * prop.num);
-		strcpy(valor[0], now());
-		if (user == CLIENT) valor[1] = "Cliente";
-		if (user == ADMIN) valor[1] = "Administrador";
-		prop.valor = valor;
+	char **valor = malloc(sizeof(char*) * prop.num);
+	strcpy(valor[0], now());
+	if (user == CLIENT) valor[1] = "Cliente";
+	if (user == ADMIN) valor[1] = "Administrador";
+	prop.valor = valor;
 
-		crearProperties(&prop);
-	}
+	crearProperties(&prop);
 
-	/*prop.num = 2;
-	FILE *file;
-	if ((file = fopen("properties/file.properties", "r"))) {
-		fclose(file);
-		cargarProperties(&prop);
-	} else {
-		char **clave = malloc(sizeof(char*) * prop.num);
-		clave[0] = "Ultima Conexión";
-		clave[1] = "Accedido desde";
-		prop.clave = clave;
+	cargarProperties(&prop);
 
-
-		char **valor = malloc(sizeof(char*) * prop.num);
-		valor[0] = "2022-03-12 18:30";
-		valor[1] = "Administrador";
-		prop.valor = valor;
-
-		crearProperties(&prop);
-	}*/
 }

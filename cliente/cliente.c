@@ -73,11 +73,11 @@ void imprimirClientes(sqlite3 *db)
 	char sql[] = "SELECT DNI, NOMBRE FROM CLIENTE";
 	sqlite3_prepare_v2(db,sql,strlen(sql),&stmt,NULL);
 
-	printf("\n\tPUESTOS\n");
+	printf("\n\tCLIENTES\n");
 	do{
 		result = sqlite3_step(stmt);
 		if(result == SQLITE_ROW){
-			printf("\t%s - %s\n", (char*)sqlite3_column_text(stmt,0), (char*)sqlite3_column_text(stmt,1));
+			printf("\t%-15s%-20s\n", (char*)sqlite3_column_text(stmt,0), (char*)sqlite3_column_text(stmt,1));
 		}
 	}while(result == SQLITE_ROW);
 
@@ -89,35 +89,34 @@ void consultarDatosCliente(sqlite3 *db, Cliente *c){
 
 	imprimirClientes(db);
 
-	char dni;
-	char str [MAX_LINE];
-	printf ("DNI:\n");
+	char str[MAX_LINE];
+
+	printf("DNI: ");
 	fflush(stdout);
 	fgets(str, MAX_LINE, stdin);
-	sscanf(str, "%s", &dni);
-	strcpy(c->dni, &dni);
+	sscanf(str, "%s", str);
+	strcpy(c->dni, str);
 
 	sqlite3_stmt *stmt;
 	int result;
 
-
-
 	char sql[] = "SELECT CL.DNI, CL.NOMBRE, CL.MAIL, E.COD, E.CAMPING, E.BUS "
 				"FROM CLIENTE CL, ENTRADA E "
-				"WHERE CL.DNI=E.DNI AND CL.DNI = '11111111A'";
+				"WHERE CL.DNI=E.DNI AND CL.DNI = ?";
 
 	sqlite3_prepare_v2(db, sql, strlen(sql)+1, &stmt, NULL);
 	sqlite3_bind_text(stmt, 1, c->dni, strlen(c->dni), SQLITE_STATIC);
 
 	do {
 		result = sqlite3_step(stmt);
+
 		if (result == SQLITE_ROW)
 		{
 			printf("ENTRA");
-			printf("\n\nDNI: \t%s", (char*)sqlite3_column_text(stmt, 0));
-			printf("\nNOMBRE: \t%s", (char*)sqlite3_column_text(stmt, 1));
-			printf("\nMAIL: \t%s\n", (char*)sqlite3_column_text(stmt, 2));
-			printf("COD_E: \t%i", sqlite3_column_int(stmt, 3));
+			printf("\n\nDNI: %-15s", (char*)sqlite3_column_text(stmt, 0));
+			printf("\nNOMBRE: %-20s", (char*)sqlite3_column_text(stmt, 1));
+			printf("\nMAIL: %-35s\n", (char*)sqlite3_column_text(stmt, 2));
+			printf("COD_E: \t-3i", sqlite3_column_int(stmt, 3));
 
 			printf("\nCAMPING: \t");
 			if (sqlite3_column_int(stmt, 4) == 1) printf("SI");
@@ -126,7 +125,11 @@ void consultarDatosCliente(sqlite3 *db, Cliente *c){
 			printf("\nBUS: \t");
 			if (sqlite3_column_int(stmt, 5) == 1) printf("SI");
 			else printf("NO");
+
+		} else {
+			printf("Error. Cliente no identificado");
 		}
+
 	} while (result == SQLITE_ROW);
 	printf("\n");
 

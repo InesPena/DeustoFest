@@ -75,8 +75,6 @@ void pedirDatosConcierto(sqlite3 *db,Concierto *c)
  * Inserta una nueva fila en la tabla concierto de la bd
  */
 
-//REVISAR
-
 void insertarConcierto(sqlite3 *db, Concierto *c)
 {
 	sqlite3_stmt *stmt;
@@ -245,7 +243,7 @@ void imprimirCartelera(sqlite3 *db,Cartelera *cart, int op)
 			{
 				printf("Cod.%-5i", sqlite3_column_int(stmt, 0));
 				printf("%-20s", (char*)sqlite3_column_text(stmt, 1));
-				printf("%s-24", (char*)sqlite3_column_text(stmt, 2));
+				printf("%-24s", (char*)sqlite3_column_text(stmt, 2));
 				printf("%-15s\n", (char*)sqlite3_column_text(stmt, 3));
 			}
 
