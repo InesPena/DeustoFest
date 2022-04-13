@@ -1,5 +1,4 @@
 #include "cliente.h"
-
 #include "../sqlite3/sqlite3.h"
 
 #define MAX_LINE 20
@@ -10,7 +9,8 @@
 
 void imprimirCliente(Cliente c)
 {
-	printf("Dni: %s, Nombre: %s, E-mail: %s", c.dni, c.nombre, c.mail);
+
+
 }
 
 /*
@@ -51,7 +51,7 @@ void insertCliente(sqlite3 *db, Cliente *c)
 	sqlite3_stmt *stmt;
 	int result;
 
-	char sql[] = "INSERT INTO CLIENTE (DNI, NOMBRE, MAIL) VALUES (?, ?, ?)";
+	char sql[] = "INSERT INTO CLIENTE (dni, nombre, mail) VALUES (?, ?, ?)";
 
 	sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL);
 
@@ -60,26 +60,37 @@ void insertCliente(sqlite3 *db, Cliente *c)
 	sqlite3_bind_text(stmt, 3, c->mail, strlen(c->mail), SQLITE_STATIC);
 
 	result = sqlite3_step(stmt);
-
-	char buffer[100];
-	sprintf(buffer, "INSERT INTO CLIENTE (DNI, NOMBRE, MAIL) VALUES ('%s', '%s', '%s')", c->nombre, c->nombre, c->mail);
-
-	if (result != SQLITE_DONE) {
-		log(buffer, ERROR);
-		printf("Error en la compra de la entrada");
-	} else {
-		log(buffer, INFO);
-	}
-
+	if (result != SQLITE_DONE)
+		printf("Error al realizar la compra \n");
 
 	sqlite3_finalize(stmt);
 }
+void imprimirClientes(sqlite3 *db)
+{
+	sqlite3_stmt *stmt;
+	int result;
 
+	char sql[] = "SELECT DNI, NOMBRE FROM CLIENTE";
+	sqlite3_prepare_v2(db,sql,strlen(sql),&stmt,NULL);
+
+	printf("\n\tPUESTOS\n");
+	do{
+		result = sqlite3_step(stmt);
+		if(result == SQLITE_ROW){
+			printf("\t%s - %s\n", (char*)sqlite3_column_text(stmt,0), (char*)sqlite3_column_text(stmt,1));
+		}
+	}while(result == SQLITE_ROW);
+
+	printf("\n");
+
+	sqlite3_finalize(stmt);
+}
 void consultarDatosCliente(sqlite3 *db, Cliente *c){
+
+	imprimirClientes(db);
 
 	char dni;
 	char str [MAX_LINE];
-
 	printf ("DNI:\n");
 	fflush(stdout);
 	fgets(str, MAX_LINE, stdin);
@@ -89,9 +100,11 @@ void consultarDatosCliente(sqlite3 *db, Cliente *c){
 	sqlite3_stmt *stmt;
 	int result;
 
+
+
 	char sql[] = "SELECT CL.DNI, CL.NOMBRE, CL.MAIL, E.COD, E.CAMPING, E.BUS "
-			"FROM CLIENTE CL, ENTRADA E "
-			"WHERE CLIENTE.DNI=ENTRADA.DNI AND CLIENTE.DNI = ?";
+				"FROM CLIENTE CL, ENTRADA E "
+				"WHERE CL.DNI=E.DNI AND CL.DNI = '11111111A'";
 
 	sqlite3_prepare_v2(db, sql, strlen(sql)+1, &stmt, NULL);
 	sqlite3_bind_text(stmt, 1, c->dni, strlen(c->dni), SQLITE_STATIC);
@@ -100,9 +113,10 @@ void consultarDatosCliente(sqlite3 *db, Cliente *c){
 		result = sqlite3_step(stmt);
 		if (result == SQLITE_ROW)
 		{
+			printf("ENTRA");
 			printf("\n\nDNI: \t%s", (char*)sqlite3_column_text(stmt, 0));
 			printf("\nNOMBRE: \t%s", (char*)sqlite3_column_text(stmt, 1));
-			printf("\nMAIL: \t%s", (char*)sqlite3_column_text(stmt, 2));
+			printf("\nMAIL: \t%s\n", (char*)sqlite3_column_text(stmt, 2));
 			printf("COD_E: \t%i", sqlite3_column_int(stmt, 3));
 
 			printf("\nCAMPING: \t");
@@ -118,12 +132,16 @@ void consultarDatosCliente(sqlite3 *db, Cliente *c){
 
 	char buffer[100];
 
-	sprintf(buffer, "SELECT CL.DNI, CL.NOMBRE, CL.MAIL, E.COD, E.CAMPING, E.BUS"
-			"FROM CLIENTE CL, ENTRADA E"
+	sprintf(buffer, "SELECT CL.DNI, CL.NOMBRE, CL.MAIL, E.COD, E.CAMPING, E.BUS "
+			"FROM CLIENTE CL, ENTRADA E "
 			"WHERE CLIENTE.DNI=ENTRADA.DNI AND CLIENTE.DNI = '%s'", c->dni);
 
 	if (result != SQLITE_DONE) log(buffer, ERROR);
 	else  log(buffer, INFO);
 
 	sqlite3_finalize(stmt);
+
+
 }
+
+
